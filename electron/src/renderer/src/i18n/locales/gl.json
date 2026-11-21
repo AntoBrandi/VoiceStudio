@@ -144,8 +144,6 @@
     "maintainerShimul": "Shimul Debnath",
     "follow": "Segue",
     "website": "Sitio web",
-    "hideUntilUpdate": "Agochar ata a próxima actualización",
-    "hideThanks": "Grazas por visitar as persoas colaboradoras! Volverá coa próxima actualización.",
     "hoHoHo": "Jo, jo, jo!"
   },
   "twilioIntegration": {
@@ -2503,20 +2501,7 @@
     "coffee_desc": "Cómprelle un café ao equipo, sen necesidade de conta.",
     "paypal_desc": "Fai unha contribución rápida ou periódica a través de PayPal.",
     "platforms": "Plataformas",
-    "footer": "Cada contribución axuda a avanzar na IA local.",
-    "suggested_title": "Escolle unha cantidade",
-    "custom": "Personalizado",
-    "choose_method": "Escolle como dar",
-    "choose_method_amount": "Continuar con ${{amount}}",
-    "goal": {
-      "title": "Apoio ao desenvolvemento de VoiceStudio",
-      "of": "de",
-      "per_month": "/mes",
-      "aria": "{{raised}} de {{goal}} obxectivo mensual",
-      "met": "🎉 Obxectivo cumprido — {{raised}} aumentado. Grazas!",
-      "social_proof_one": "Únete a {{count}} partidario que financia a IA local",
-      "social_proof_other": "Únete a {{count}} seguidores que financian a IA local"
-    }
+    "footer": "Cada contribución axuda a avanzar na IA local."
   },
   "support": {
     "tab_support": "Apoio",
@@ -2525,20 +2510,7 @@
     "other_ways": "Outras formas de axudar",
     "star_github": "Estrela en GitHub",
     "join_discord": "Únete a Discord",
-    "sponsors_title": "Patrocinadores",
-    "sponsors_lead": "As empresas e persoas que manteñen VoiceStudio gratuíto, local e de código aberto.",
-    "sponsors_empty_title": "Sé o primeiro en patrocinar VoiceStudio",
-    "sponsors_empty_desc": "O teu logotipo aquí",
-    "sponsors_become": "Convértete en patrocinador",
-    "sponsors_become_aria": "Convértete en patrocinador: abre un problema de GitHub precargado no teu navegador",
-    "sponsors_perk": "Os patrocinadores obteñen o seu logotipo na aplicación, no README e un espazo no sitio do proxecto.",
-    "sponsors_learn_more": "Que reciben os patrocinadores",
-    "sponsors_logo_aria": "Visita {{name}}, un patrocinador de VoiceStudio",
-    "sponsors_tier_strategic": "Estratéxico",
-    "sponsors_tier_company": "Empresa",
-    "sponsors_tier_development": "Desenvolvemento",
-    "sponsors_tier_community": "Comunidade",
-    "sponsors_tier_supporter": "Colaborador"
+    "sponsors_tier_strategic": "Estratéxico"
   },
   "reportBug": {
     "native_fault_cause": "Fallo nativo: o proceso fallou debaixo de Python, polo que non hai ningún rastrexo de Python dispoñible.",
@@ -2951,14 +2923,10 @@
     "fitting": "Axuste do tempo"
   },
   "supportPlans": {
-    "remove": "Eliminar a barra de patrocinadores",
     "title": "Gratis vs Pro",
     "free": "Libre",
     "pro": "Pro",
     "get_pro": "Obtén Pro",
-    "sponsor_bar": "Barra de patrocinadores",
-    "visible": "Visible",
-    "hideable": "Pódese ocultar",
     "unavailable": "A activación profesional aínda non está configurada.",
     "telemetry": "Telemetría",
     "opt_in": "Opcional, opt-in",

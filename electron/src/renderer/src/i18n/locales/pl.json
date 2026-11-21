@@ -144,8 +144,6 @@
     "maintainerShimul": "Shimul Debnath",
     "follow": "Obserwuj",
     "website": "Strona",
-    "hideUntilUpdate": "Ukryj do następnej aktualizacji",
-    "hideThanks": "Dziękujemy za odwiedzenie naszych współtwórców! Wróci to z następną aktualizacją.",
     "hoHoHo": "Ho, ho, ho!"
   },
   "twilioIntegration": {
@@ -2440,22 +2438,7 @@
     "coffee_desc": "Kup zespołowi kawę. Nie potrzeba konta.",
     "paypal_desc": "Szybka jednorazowa lub cykliczna płatność za pośrednictwem PayPal.",
     "platforms": "Platformy",
-    "footer": "Każdy wkład pomaga przesuwać granice lokalnej sztucznej inteligencji.",
-    "suggested_title": "Wybierz kwotę",
-    "custom": "Niestandardowe",
-    "choose_method": "Wybierz sposób dawania",
-    "choose_method_amount": "Kontynuuj za pomocą ${{amount}}",
-    "goal": {
-      "title": "Wesprzyj rozwój VoiceStudio",
-      "of": "z",
-      "per_month": "/ miesiąc",
-      "aria": "{{raised}} z {{goal}} celu miesięcznego",
-      "met": "🎉 Cel osiągnięty — {{raised}} podniesiony. Dziękuję!",
-      "social_proof_one": "Dołącz do {{count}} osoby wspierającej lokalną AI",
-      "social_proof_few": "Dołącz do {{count}} osób wspierających lokalną AI",
-      "social_proof_many": "Dołącz do {{count}} osób wspierających lokalną AI",
-      "social_proof_other": "Dołącz do {{count}} osób wspierających lokalną AI"
-    }
+    "footer": "Każdy wkład pomaga przesuwać granice lokalnej sztucznej inteligencji."
   },
   "support": {
     "tab_support": "Wsparcie",
@@ -2464,20 +2447,7 @@
     "other_ways": "Inne sposoby pomocy",
     "star_github": "Gwiazda na GitHubie",
     "join_discord": "Dołącz do Discorda",
-    "sponsors_title": "Sponsorzy",
-    "sponsors_lead": "Firmy i osoby zapewniające VoiceStudio bezpłatne, lokalne i otwarte oprogramowanie.",
-    "sponsors_empty_title": "Bądź pierwszą osobą, która sponsoruje VoiceStudio",
-    "sponsors_empty_desc": "Twoje logo tutaj",
-    "sponsors_become": "Zostań sponsorem",
-    "sponsors_become_aria": "Zostań sponsorem — otwiera w przeglądarce wstępnie wypełnione wydanie GitHub",
-    "sponsors_logo_aria": "Odwiedź {{name}}, sponsora VoiceStudio",
-    "sponsors_perk": "Sponsorzy otrzymują swoje logo w aplikacji, wREADMEi miejsce na stronie projektu.",
-    "sponsors_learn_more": "Co dostają sponsorzy",
-    "sponsors_tier_strategic": "Strategiczny",
-    "sponsors_tier_company": "Firma",
-    "sponsors_tier_development": "Rozwój",
-    "sponsors_tier_community": "Społeczność",
-    "sponsors_tier_supporter": "Wspierający"
+    "sponsors_tier_strategic": "Strategiczny"
   },
   "reportBug": {
     "native_fault_cause": "Błąd natywny: proces uległ awarii poniżej warstwy Pythona, więc ślad stosu Pythona jest niedostępny.",
@@ -2977,14 +2947,10 @@
     "fitting": "Dostosowywanie czasu"
   },
   "supportPlans": {
-    "remove": "Usuń pasek sponsorów",
     "title": "Darmowa a Pro",
     "free": "Darmowa",
     "pro": "Pro",
     "get_pro": "Zdobądź Pro",
-    "sponsor_bar": "Pasek sponsorów",
-    "visible": "Widoczny",
-    "hideable": "Można ukryć",
     "unavailable": "Aktywacja Pro nie została jeszcze skonfigurowana.",
     "telemetry": "Telemetria",
     "opt_in": "Opcjonalna, za zgodą",

@@ -144,8 +144,6 @@
     "maintainerShimul": "Shimul Debnath",
     "follow": "Volgen",
     "website": "Website",
-    "hideUntilUpdate": "Verbergen tot de volgende update",
-    "hideThanks": "Bedankt voor je bezoek aan onze bijdragers! Dit komt terug bij de volgende update.",
     "hoHoHo": "Ho ho ho!"
   },
   "twilioIntegration": {
@@ -2416,20 +2414,7 @@
     "coffee_desc": "Koop een kopje koffie voor het team. Geen account nodig.",
     "paypal_desc": "Snel eenmalig of terugkerend via PayPal.",
     "platforms": "Platformen",
-    "footer": "Elke bijdrage helpt de grenzen van lokale AI te verleggen.",
-    "suggested_title": "Kies een bedrag",
-    "custom": "Aangepast",
-    "choose_method": "Kies hoe u wilt geven",
-    "choose_method_amount": "Ga verder met ${{amount}}",
-    "goal": {
-      "title": "Steun de ontwikkeling van VoiceStudio",
-      "of": "van",
-      "per_month": "/ maand",
-      "aria": "{{raised}} van {{goal}} maanddoel",
-      "met": "🎉 Doel behaald — {{raised}} verhoogd. Bedankt!",
-      "social_proof_one": "Sluit je aan bij {{count}} supporter van lokale AI",
-      "social_proof_other": "Sluit je aan bij {{count}} supporters van lokale AI"
-    }
+    "footer": "Elke bijdrage helpt de grenzen van lokale AI te verleggen."
   },
   "support": {
     "tab_support": "Ondersteuning",
@@ -2438,20 +2423,7 @@
     "other_ways": "Andere manieren om te helpen",
     "star_github": "Ster op GitHub",
     "join_discord": "Sluit je aan bij Discord",
-    "sponsors_title": "Sponsoren",
-    "sponsors_lead": "De bedrijven en mensen die VoiceStudio gratis, lokaal en open source houden.",
-    "sponsors_empty_title": "Wees de eerste die VoiceStudio sponsort",
-    "sponsors_empty_desc": "Uw logo hier",
-    "sponsors_become": "Word sponsor",
-    "sponsors_become_aria": "Word sponsor: open een vooraf ingevuld GitHub-probleem in uw browser",
-    "sponsors_perk": "Sponsors krijgen hun logo in de app, in de README en een plek op de projectsite.",
-    "sponsors_learn_more": "Wat sponsoren krijgen",
-    "sponsors_logo_aria": "Bezoek {{name}}, een VoiceStudio sponsor",
-    "sponsors_tier_strategic": "Strategisch",
-    "sponsors_tier_company": "Bedrijf",
-    "sponsors_tier_development": "Ontwikkeling",
-    "sponsors_tier_community": "Community",
-    "sponsors_tier_supporter": "Supporter"
+    "sponsors_tier_strategic": "Strategisch"
   },
   "reportBug": {
     "native_fault_cause": "Native fout: het proces is onder de Python-laag vastgelopen, waardoor er geen Python-traceback beschikbaar is.",
@@ -2951,14 +2923,10 @@
     "fitting": "Timing aanpassen"
   },
   "supportPlans": {
-    "remove": "Sponsorbalk verwijderen",
     "title": "Gratis versus Pro",
     "free": "Gratis",
     "pro": "Pro",
     "get_pro": "Pro nemen",
-    "sponsor_bar": "Sponsorbalk",
-    "visible": "Zichtbaar",
-    "hideable": "Kan worden verborgen",
     "unavailable": "Pro-activering is nog niet ingesteld.",
     "telemetry": "Telemetrie",
     "opt_in": "Optioneel, met toestemming",

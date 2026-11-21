@@ -144,8 +144,6 @@
     "maintainerShimul": "Shimul Debnath",
     "follow": "متابعة",
     "website": "الموقع",
-    "hideUntilUpdate": "إخفاء حتى التحديث القادم",
-    "hideThanks": "شكرًا لزيارتك صفحات المساهمين! سيعود هذا القسم مع التحديث القادم.",
     "hoHoHo": "هو هو هو!"
   },
   "twilioIntegration": {
@@ -2464,24 +2462,7 @@
     "coffee_desc": "اشتري للفريق قهوة. لا حاجة لحساب.",
     "paypal_desc": "سريعة لمرة واحدة أو متكررة عبر PayPal.",
     "platforms": "المنصات",
-    "footer": "تساعد كل مساهمة في دفع حدود الذكاء الاصطناعي المحلي.",
-    "suggested_title": "اختر مبلغًا",
-    "custom": "مخصص",
-    "choose_method": "اختر كيفية العطاء",
-    "choose_method_amount": "المتابعة مع ${{amount}}",
-    "goal": {
-      "title": "ادعم تطوير VoiceStudio",
-      "of": "من",
-      "per_month": "/ شهر",
-      "aria": "{{raised}} من {{goal}} الهدف الشهري",
-      "met": "🎉 تم تحقيق الهدف — {{raised}} تم رفعه. شكرًا لك!",
-      "social_proof_zero": "كن أول داعم للذكاء الاصطناعي المحلي",
-      "social_proof_one": "انضم إلى {{count}} داعم يموّل الذكاء الاصطناعي المحلي",
-      "social_proof_two": "انضم إلى {{count}} داعم يموّلون الذكاء الاصطناعي المحلي",
-      "social_proof_few": "انضم إلى {{count}} داعمين يموّلون الذكاء الاصطناعي المحلي",
-      "social_proof_many": "انضم إلى {{count}} داعمًا يموّلون الذكاء الاصطناعي المحلي",
-      "social_proof_other": "انضم إلى {{count}} داعم يموّلون الذكاء الاصطناعي المحلي"
-    }
+    "footer": "تساعد كل مساهمة في دفع حدود الذكاء الاصطناعي المحلي."
   },
   "support": {
     "tab_support": "الدعم",
@@ -2490,20 +2471,7 @@
     "other_ways": "طرق أخرى للمساعدة",
     "star_github": "نجمة على جيثب",
     "join_discord": "انضم إلى الفتنة",
-    "sponsors_title": "الرعاة",
-    "sponsors_lead": "الشركات والأشخاص الذين يحتفظون بـ VoiceStudio مجاني ومحلي ومفتوح المصدر.",
-    "sponsors_empty_title": "كن أول من يرعى VoiceStudio",
-    "sponsors_empty_desc": "شعارك هنا",
-    "sponsors_become": "كن راعيا",
-    "sponsors_become_aria": "كن راعيًا — يفتح مشكلة GitHub المملوءة مسبقًا في متصفحك",
-    "sponsors_perk": "يحصل الرعاة على شعارهم في التطبيق، في README، وفي مكان على موقع المشروع.",
-    "sponsors_learn_more": "ما يحصل عليه الرعاة",
-    "sponsors_logo_aria": "قم بزيارة {{name}}، أحد الجهات الراعية لـ VoiceStudio",
-    "sponsors_tier_strategic": "استراتيجي",
-    "sponsors_tier_company": "شركة",
-    "sponsors_tier_development": "تطوير",
-    "sponsors_tier_community": "مجتمع",
-    "sponsors_tier_supporter": "داعم"
+    "sponsors_tier_strategic": "استراتيجي"
   },
   "reportBug": {
     "native_fault_cause": "عطل أصلي: تعطلت العملية في طبقة أدنى من Python، لذلك لا يتوفر تتبع استثناء Python.",
@@ -3003,14 +2971,10 @@
     "fitting": "ضبط التوقيت"
   },
   "supportPlans": {
-    "remove": "إزالة شريط الرعاة",
     "title": "المجاني مقابل Pro",
     "free": "مجاني",
     "pro": "Pro",
     "get_pro": "احصل على Pro",
-    "sponsor_bar": "شريط الرعاة",
-    "visible": "ظاهر",
-    "hideable": "يمكن إخفاؤه",
     "unavailable": "لم يتم إعداد تفعيل Pro بعد.",
     "telemetry": "بيانات الاستخدام",
     "opt_in": "اختيارية وبموافقة مسبقة",

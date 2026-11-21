@@ -8,8 +8,8 @@ and deletes them when a release is cut.
   suffix for a second entry on the same PR (`3263-b.docs.md`).
 - **Type:** `changed`, `added`, `docs`, `fixed`, `license` or `ci`, the
   `### ...` subsections of the changelog.
-- **Content:** one line, written for users, ending with `(#NNN)` and, for
-  community work, `— thanks @user!`. A leading `- ` is optional.
+- **Content:** one line, written for users, ending with `(#NNN)`. A leading
+  `- ` is optional.
 
 ```
 Saved voice rows keep their hover actions visible over long names (#3263)

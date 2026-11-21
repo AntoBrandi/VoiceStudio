@@ -3,14 +3,6 @@ import { HomeFeatureIcon } from './home-feature-icon';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { getBridge } from '@/components/bridge';
 import { runRendererTask } from '@/lib/global-error-recovery';
-import { HomeContributors } from './home-contributors';
-import {
-  PROFILE_CLICKS_TO_UNLOCK,
-  clickedProfiles,
-  heroHiddenFor,
-  hideHeroFor,
-  recordProfileClick,
-} from './home-hero-egg';
 import { HomeChristmas, PixelSnow, currentHomeSeason } from './home-season';
 import { ExternalLink } from '@/components/external-link';
 import { releaseNotesUrl } from '@/components/setup-extras';
@@ -42,7 +34,7 @@ import {
   restoreDesignProfile,
   writeDraft,
 } from '@/features/design/design-draft';
-import { ArrowRightIcon, ArrowUpRightIcon, EyeOffIcon, FolderOpenIcon } from 'lucide-react';
+import { ArrowRightIcon, ArrowUpRightIcon, FolderOpenIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 interface Destination {
@@ -86,10 +78,8 @@ export function HomePage() {
   const navigate = useNavigate();
   const version = appVersion();
   const season = currentHomeSeason();
-  const [heroHidden, setHeroHidden] = useState(() => heroHiddenFor(version));
   const [projectError, setProjectError] = useState<string | null>(null);
   const [pendingLongform, setPendingLongform] = useState<LongformRecent | null>(null);
-  const [profileClicks, setProfileClicks] = useState(() => clickedProfiles().length);
   const { data: profiles = [] } = useProfiles();
   const { data: exports = [] } = useQuery({
     queryKey: ['export-history'],
@@ -252,96 +242,72 @@ export function HomePage() {
       <div className="min-h-0 flex-1 overflow-y-auto">
         <div className="home-content mx-auto w-full max-w-6xl">
           <section aria-labelledby="home-new-projects">
-            {heroHidden ? (
-              <h2 id="home-new-projects" className="sr-only">
-                {t('homeUi.title')}
-              </h2>
-            ) : (
-              <div
-                className="home-heading relative isolate overflow-hidden"
-                data-season={season ?? undefined}
-              >
-                {season && <PixelSnow />}
-                <img
-                  src={brandArtwork}
-                  alt=""
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-y-0 right-0 -z-10 h-full w-1/2 object-cover object-right opacity-25 [mask-image:linear-gradient(90deg,transparent,black)]"
-                />
-                <div className="home-heading-row">
-                  <div className="home-heading-copy">
-                    <h2
-                      id="home-new-projects"
-                      className="flex flex-wrap items-center gap-x-3 gap-y-2 text-3xl font-semibold tracking-[-0.035em]"
-                    >
-                      <Tooltip>
-                        <TooltipTrigger
-                          render={
-                            <a
-                              href="https://voicestudio.sh"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="rounded-md transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-ring"
-                              onClick={(event) => {
-                                const browser = getBridge()?.browser;
-                                if (!browser) return;
-                                event.preventDefault();
-                                event.currentTarget.focus();
-                                runRendererTask('Preview official website', () =>
-                                  browser.open('https://voicestudio.sh'),
-                                );
-                              }}
-                            />
-                          }
-                        >
-                          {t('homeUi.title')}
-                        </TooltipTrigger>
-                        <TooltipContent surface="theme" side="bottom">
-                          {t('siteBrowser.preview')}
-                        </TooltipContent>
-                      </Tooltip>
-                    </h2>
-                    <p className="mt-3 max-w-[80ch] text-sm leading-relaxed text-foreground/65">
-                      {t('homeUi.subtitle')}
-                    </p>
-                    <div className="home-hero-meta">
-                      {version && (
-                        <ExternalLink
-                          href={releaseNotesUrl(version, getBridge()?.app?.isDev ?? true)}
-                          variant="link"
-                          showIcon={false}
-                          className="home-whats-new"
-                        >
-                          <span className="tabular-nums">{t('app.version', { version })}</span>
-                          <span aria-hidden="true">·</span>
-                          {t('update.whats_new')}
-                          <ArrowUpRightIcon aria-hidden="true" />
-                        </ExternalLink>
-                      )}
-                      {version && profileClicks >= PROFILE_CLICKS_TO_UNLOCK && (
-                        <Button
-                          variant="ghost"
-                          size="xs"
-                          className="home-hero-hide"
-                          title={t('homeUi.hideThanks')}
-                          onClick={() => {
-                            hideHeroFor(version);
-                            setHeroHidden(true);
-                          }}
-                        >
-                          <EyeOffIcon aria-hidden="true" />
-                          {t('homeUi.hideUntilUpdate')}
-                        </Button>
-                      )}
-                      {season === 'christmas' && <HomeChristmas />}
-                    </div>
+            <div
+              className="home-heading relative isolate overflow-hidden"
+              data-season={season ?? undefined}
+            >
+              {season && <PixelSnow />}
+              <img
+                src={brandArtwork}
+                alt=""
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-y-0 right-0 -z-10 h-full w-1/2 object-cover object-right opacity-25 [mask-image:linear-gradient(90deg,transparent,black)]"
+              />
+              <div className="home-heading-row">
+                <div className="home-heading-copy">
+                  <h2
+                    id="home-new-projects"
+                    className="flex flex-wrap items-center gap-x-3 gap-y-2 text-3xl font-semibold tracking-[-0.035em]"
+                  >
+                    <Tooltip>
+                      <TooltipTrigger
+                        render={
+                          <a
+                            href="https://voicestudio.sh"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="rounded-md transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-ring"
+                            onClick={(event) => {
+                              const browser = getBridge()?.browser;
+                              if (!browser) return;
+                              event.preventDefault();
+                              event.currentTarget.focus();
+                              runRendererTask('Preview official website', () =>
+                                browser.open('https://voicestudio.sh'),
+                              );
+                            }}
+                          />
+                        }
+                      >
+                        {t('homeUi.title')}
+                      </TooltipTrigger>
+                      <TooltipContent surface="theme" side="bottom">
+                        {t('siteBrowser.preview')}
+                      </TooltipContent>
+                    </Tooltip>
+                  </h2>
+                  <p className="mt-3 max-w-[80ch] text-sm leading-relaxed text-foreground/65">
+                    {t('homeUi.subtitle')}
+                  </p>
+                  <div className="home-hero-meta">
+                    {version && (
+                      <ExternalLink
+                        href={releaseNotesUrl(version, getBridge()?.app?.isDev ?? true)}
+                        variant="link"
+                        showIcon={false}
+                        className="home-whats-new"
+                      >
+                        <span className="tabular-nums">{t('app.version', { version })}</span>
+                        <span aria-hidden="true">·</span>
+                        {t('update.whats_new')}
+                        <ArrowUpRightIcon aria-hidden="true" />
+                      </ExternalLink>
+                    )}
+                    {season === 'christmas' && <HomeChristmas />}
                   </div>
-                  <HomeContributors
-                    onProfileOpen={(href) => setProfileClicks(recordProfileClick(href))}
-                  />
                 </div>
               </div>
-            )}
+            </div>
             {[destinations.slice(0, 3), destinations.slice(3)].map((group, groupIndex) => (
               <div
                 key={groupIndex}

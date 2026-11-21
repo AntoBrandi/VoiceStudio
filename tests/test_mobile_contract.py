@@ -602,34 +602,24 @@ def test_android_native_fetch_rejects_unsafe_archives(tmp_path, monkeypatch, dat
     assert not (tmp_path.parent / "outside").exists()
 
 
-def test_ios_home_contributors_match_electron_snapshot():
-    """The iOS Home cluster mirrors Electron's bundled snapshot, avatars included (offline)."""
+def test_ios_and_android_home_contributors_match():
+    """The phone Home clusters list the same people, avatars bundled for offline use.
+
+    The desktop app no longer shows contributors; the phones keep their own snapshot,
+    and Android's Gradle catalog task still copies the portraits from Electron's folder.
+    """
     import re
 
-    data = (ROOT / "electron/src/renderer/src/features/home/home-contributors-data.ts").read_text(encoding="utf-8")
-    electron = re.findall(r"login: '([^']+)'", data)
     swift = (ROOT / "mobile/ios/VoiceStudio/Features/HomeContributors.swift").read_text(encoding="utf-8")
-    ios = re.findall(r'"([^"]+)"', re.search(r"static let logins = \[(.*?)\]", swift, re.S).group(1))
-    assert ios == electron
-    core = re.findall(r"'([^']+)'", re.search(r"homeCoreMaintainers = \[(.*?)\]", data, re.S).group(1))
-    ios_core = re.findall(r'"([^"]+)"', re.search(r"coreMaintainers: Set<String> = \[(.*?)\]", swift, re.S).group(1))
-    assert set(ios_core) == set(core) == {"debpalash", "velixio"}
-    for login in electron:
-        assert (ROOT / f"mobile/ios/VoiceStudio/Resources/Contributors.xcassets/contributor-{login}.imageset/{login}.png").is_file()
-
-
-def test_android_home_contributors_match_electron_snapshot():
-    import re
-
-    electron = re.findall(r"login: '([^']+)'", (ROOT / "electron/src/renderer/src/features/home/home-contributors-data.ts").read_text(encoding="utf-8"))
     kotlin = (ROOT / "mobile/android/features/src/main/kotlin/com/voicestudio/mobile/features/HomeContributors.kt").read_text(encoding="utf-8")
+    ios = re.findall(r'"([^"]+)"', re.search(r"static let logins = \[(.*?)\]", swift, re.S).group(1))
     android = re.findall(r'"([^"]+)"', re.search(r"val logins = listOf\((.*?)\)", kotlin, re.S).group(1))
-    assert android == electron
-    data = (ROOT / "electron/src/renderer/src/features/home/home-contributors-data.ts").read_text(encoding="utf-8")
-    core = re.findall(r"'([^']+)'", re.search(r"homeCoreMaintainers = \[(.*?)\]", data, re.S).group(1))
+    assert ios and ios == android
+    ios_core = re.findall(r'"([^"]+)"', re.search(r"coreMaintainers: Set<String> = \[(.*?)\]", swift, re.S).group(1))
     android_core = re.findall(r'"([^"]+)"', re.search(r"coreMaintainers = setOf\((.*?)\)", kotlin, re.S).group(1))
-    assert set(android_core) == set(core) == {"debpalash", "velixio"}
-    for login in electron:  # the Gradle catalog task copies these into the APK assets
+    assert set(ios_core) == set(android_core) == {"debpalash", "velixio"}
+    for login in ios:
+        assert (ROOT / f"mobile/ios/VoiceStudio/Resources/Contributors.xcassets/contributor-{login}.imageset/{login}.png").is_file()
         assert list((ROOT / "electron/src/renderer/src/features/home/contributors").glob(f"{login}.*"))
 
 

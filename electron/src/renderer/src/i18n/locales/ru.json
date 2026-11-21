@@ -144,8 +144,6 @@
     "maintainerShimul": "Shimul Debnath",
     "follow": "Подписаться",
     "website": "Сайт",
-    "hideUntilUpdate": "Скрыть до следующего обновления",
-    "hideThanks": "Спасибо, что заглянули к нашим участникам! Это вернётся со следующим обновлением.",
     "hoHoHo": "Хо-хо-хо!"
   },
   "twilioIntegration": {
@@ -2440,22 +2438,7 @@
     "coffee_desc": "Купите команде кофе. Никакой учетной записи не требуется.",
     "paypal_desc": "Быстрая разовая или регулярная оплата через PayPal.",
     "platforms": "Платформы",
-    "footer": "Каждый вклад помогает расширить границы местного ИИ.",
-    "suggested_title": "Выберите сумму",
-    "custom": "Обычай",
-    "choose_method": "Выберите, как подарить",
-    "choose_method_amount": "Продолжить с ${{amount}}",
-    "goal": {
-      "title": "Поддержите разработку VoiceStudio",
-      "of": "из",
-      "per_month": "/ месяц",
-      "aria": "{{raised}} из {{goal}} цели на месяц",
-      "met": "🎉 Цель достигнута — поднят {{raised}}. Спасибо!",
-      "social_proof_one": "Присоединяйтесь к {{count}} спонсору локального ИИ",
-      "social_proof_few": "Присоединяйтесь к {{count}} спонсорам локального ИИ",
-      "social_proof_many": "Присоединяйтесь к {{count}} спонсорам локального ИИ",
-      "social_proof_other": "Присоединяйтесь к {{count}} спонсорам локального ИИ"
-    }
+    "footer": "Каждый вклад помогает расширить границы местного ИИ."
   },
   "support": {
     "tab_support": "Поддерживать",
@@ -2464,20 +2447,7 @@
     "other_ways": "Другие способы помочь",
     "star_github": "Звезда на GitHub",
     "join_discord": "Присоединяйтесь к Discord",
-    "sponsors_title": "Спонсоры",
-    "sponsors_lead": "Компании и люди, которые поддерживают VoiceStudio бесплатным, локальным и открытым исходным кодом.",
-    "sponsors_empty_title": "Будьте первым, кто спонсирует VoiceStudio",
-    "sponsors_empty_desc": "Ваш логотип здесь",
-    "sponsors_become": "Стать спонсором",
-    "sponsors_become_aria": "Стать спонсором — открывает в браузере предварительно заполненный вопрос GitHub.",
-    "sponsors_perk": "Спонсоры размещают свой логотип в приложении, в README и в слоте на сайте проекта.",
-    "sponsors_learn_more": "Что получают спонсоры",
-    "sponsors_logo_aria": "Посетите {{name}}, спонсора VoiceStudio.",
-    "sponsors_tier_strategic": "Стратегический",
-    "sponsors_tier_company": "Компания",
-    "sponsors_tier_development": "Разработка",
-    "sponsors_tier_community": "Сообщество",
-    "sponsors_tier_supporter": "Сторонник"
+    "sponsors_tier_strategic": "Стратегический"
   },
   "reportBug": {
     "native_fault_cause": "Сбой нативного кода: процесс завершился аварийно ниже уровня Python, поэтому трассировка Python недоступна.",
@@ -2977,14 +2947,10 @@
     "fitting": "Настройка времени"
   },
   "supportPlans": {
-    "remove": "Убрать панель спонсоров",
     "title": "Бесплатная версия и Pro",
     "free": "Бесплатно",
     "pro": "Pro",
     "get_pro": "Получить Pro",
-    "sponsor_bar": "Панель спонсоров",
-    "visible": "Видна",
-    "hideable": "Можно скрыть",
     "unavailable": "Активация Pro ещё не настроена.",
     "telemetry": "Телеметрия",
     "opt_in": "Необязательно, по согласию",

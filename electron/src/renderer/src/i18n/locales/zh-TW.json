@@ -144,8 +144,6 @@
     "maintainerShimul": "Shimul Debnath",
     "follow": "追蹤",
     "website": "網站",
-    "hideUntilUpdate": "隱藏到下次更新",
-    "hideThanks": "感謝你拜訪我們的貢獻者！下次更新時它會再次出現。",
     "hoHoHo": "吼吼吼！"
   },
   "twilioIntegration": {
@@ -2416,20 +2414,7 @@
     "coffee_desc": "請團隊喝杯咖啡。無需帳戶。",
     "paypal_desc": "快速一次性或透過 PayPal 定期進行。",
     "platforms": "平台",
-    "footer": "每一項貢獻都有助於突破本地人工智慧的界限。",
-    "suggested_title": "選擇金額",
-    "custom": "客製化",
-    "choose_method": "選擇如何給予",
-    "choose_method_amount": "繼續 ${{amount}}",
-    "goal": {
-      "title": "支持 VoiceStudio 開發",
-      "of": "的",
-      "per_month": "/月",
-      "aria": "{{raised}} 每月目標 {{goal}}",
-      "met": "🎉 目標達成 — {{raised}} 提高。謝謝你！",
-      "social_proof_one": "加入 {{count}} 位支持本地 AI 的贊助者",
-      "social_proof_other": "加入 {{count}} 位支持本地 AI 的贊助者"
-    }
+    "footer": "每一項貢獻都有助於突破本地人工智慧的界限。"
   },
   "support": {
     "tab_support": "支援",
@@ -2438,20 +2423,7 @@
     "other_ways": "其他幫助方法",
     "star_github": "在 GitHub 上加星標",
     "join_discord": "加入不和諧",
-    "sponsors_title": "贊助商",
-    "sponsors_lead": "保持 VoiceStudio 免費、本地和開源的公司和個人。",
-    "sponsors_empty_title": "成為第一個贊助VoiceStudio的人",
-    "sponsors_empty_desc": "您的標誌在這裡",
-    "sponsors_become": "成為贊助商",
-    "sponsors_become_aria": "成為贊助商 — 在瀏覽器中開啟預先填充的 GitHub 問題",
-    "sponsors_perk": "贊助商可以在應用程式的 README 中取得他們的徽標，並在專案網站上獲得一個位置。",
-    "sponsors_learn_more": "贊助商得到什麼",
-    "sponsors_logo_aria": "存取 {{name}}，VoiceStudio 贊助商",
-    "sponsors_tier_strategic": "策略",
-    "sponsors_tier_company": "企業",
-    "sponsors_tier_development": "開發",
-    "sponsors_tier_community": "社群",
-    "sponsors_tier_supporter": "支持者"
+    "sponsors_tier_strategic": "策略"
   },
   "reportBug": {
     "native_fault_cause": "原生程式碼故障：程序在 Python 底層崩潰，因此沒有可用的 Python 回溯資訊。",
@@ -2951,14 +2923,10 @@
     "fitting": "正在調整時間"
   },
   "supportPlans": {
-    "remove": "移除贊助商列",
     "title": "免費版與 Pro 比較",
     "free": "免費版",
     "pro": "Pro",
     "get_pro": "取得 Pro",
-    "sponsor_bar": "贊助商列",
-    "visible": "顯示",
-    "hideable": "可隱藏",
     "unavailable": "尚未設定 Pro 啟用。",
     "telemetry": "遙測",
     "opt_in": "可選，需主動同意",

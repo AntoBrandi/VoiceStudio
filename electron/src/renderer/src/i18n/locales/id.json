@@ -144,8 +144,6 @@
     "maintainerShimul": "Shimul Debnath",
     "follow": "Ikuti",
     "website": "Situs web",
-    "hideUntilUpdate": "Sembunyikan hingga pembaruan berikutnya",
-    "hideThanks": "Terima kasih telah mengunjungi para kontributor kami! Bagian ini kembali pada pembaruan berikutnya.",
     "hoHoHo": "Ho ho ho!"
   },
   "twilioIntegration": {
@@ -2416,20 +2414,7 @@
     "coffee_desc": "Belikan kopi untuk tim. Tidak diperlukan akun.",
     "paypal_desc": "Cepat satu kali atau berulang melalui PayPal.",
     "platforms": "Platform",
-    "footer": "Setiap kontribusi membantu mendorong batasan AI lokal.",
-    "suggested_title": "Pilih jumlah",
-    "custom": "Adat",
-    "choose_method": "Pilih cara memberi",
-    "choose_method_amount": "Lanjutkan dengan ${{amount}}",
-    "goal": {
-      "title": "Dukung pengembangan VoiceStudio",
-      "of": "dari",
-      "per_month": "/ bulan",
-      "aria": "{{raised}} dari {{goal}} sasaran bulanan",
-      "met": "🎉 Sasaran tercapai — {{raised}} dinaikkan. Terima kasih!",
-      "social_proof_one": "Bergabunglah dengan {{count}} pendukung AI lokal",
-      "social_proof_other": "Bergabunglah dengan {{count}} pendukung AI lokal"
-    }
+    "footer": "Setiap kontribusi membantu mendorong batasan AI lokal."
   },
   "support": {
     "tab_support": "Dukungan",
@@ -2438,20 +2423,7 @@
     "other_ways": "Cara lain untuk membantu",
     "star_github": "Bintangi di GitHub",
     "join_discord": "Bergabunglah dengan Perselisihan",
-    "sponsors_title": "Sponsor",
-    "sponsors_lead": "Perusahaan dan masyarakat menjaga VoiceStudio gratis, lokal, dan open source.",
-    "sponsors_empty_desc": "Logo Anda di sini",
-    "sponsors_become": "Menjadi sponsor",
-    "sponsors_become_aria": "Menjadi sponsor — membuka masalah GitHub yang telah diisi sebelumnya di browser Anda",
-    "sponsors_perk": "Sponsor mendapatkan logonya di aplikasi, di README, dan slot di situs proyek.",
-    "sponsors_logo_aria": "Kunjungi {{name}}, sponsor VoiceStudio",
-    "sponsors_empty_title": "Jadilah yang pertama mensponsori VoiceStudio",
-    "sponsors_learn_more": "Apa yang didapat sponsor",
-    "sponsors_tier_strategic": "Strategis",
-    "sponsors_tier_company": "Perusahaan",
-    "sponsors_tier_development": "Pengembangan",
-    "sponsors_tier_community": "Komunitas",
-    "sponsors_tier_supporter": "Pendukung"
+    "sponsors_tier_strategic": "Strategis"
   },
   "reportBug": {
     "native_fault_cause": "Kegagalan native: proses gagal di bawah lapisan Python, sehingga traceback Python tidak tersedia.",
@@ -2951,14 +2923,10 @@
     "fitting": "Menyesuaikan waktu"
   },
   "supportPlans": {
-    "remove": "Hapus bilah sponsor",
     "title": "Gratis vs Pro",
     "free": "Gratis",
     "pro": "Pro",
     "get_pro": "Dapatkan Pro",
-    "sponsor_bar": "Bilah sponsor",
-    "visible": "Terlihat",
-    "hideable": "Dapat disembunyikan",
     "unavailable": "Aktivasi Pro belum dikonfigurasi.",
     "telemetry": "Telemetri",
     "opt_in": "Opsional, dengan persetujuan",

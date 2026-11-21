@@ -92,10 +92,10 @@ const extraSettings = [
   },
   {
     to: '/settings/support',
-    label: 'donate.title',
+    label: 'support.tab_support',
     Icon: ExternalLinkIcon,
     Component: SupportSettings,
-    fields: ['donate.title', 'contact.channels_label'],
+    fields: ['support.tab_support', 'contact.channels_label'],
   },
   {
     to: '/settings/network',

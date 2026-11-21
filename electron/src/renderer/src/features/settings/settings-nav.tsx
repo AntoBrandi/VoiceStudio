@@ -250,7 +250,7 @@ export function SettingsNav({
       <div className="shrink-0 space-y-1.5 border-t border-sidebar-border/50 bg-background/15 p-3">
         <Link
           to="/settings/support"
-          title={t('donate.title')}
+          title={t('support.tab_support')}
           aria-current={
             location.kind === 'extra' && location.to === '/settings/support' ? 'page' : undefined
           }
@@ -260,7 +260,7 @@ export function SettingsNav({
           )}
         >
           <HeartHandshakeIcon className="size-4 shrink-0 text-primary transition-transform duration-200 group-hover:scale-110 motion-reduce:transition-none" />
-          <NavLabel>{t('donate.title')}</NavLabel>
+          <NavLabel>{t('support.tab_support')}</NavLabel>
         </Link>
         <NavLink
           to="/clone"

@@ -47,8 +47,6 @@ import type { GallerySlice } from './gallerySlice';
 import { createGallerySlice } from './gallerySlice';
 import type { ReleasesSlice } from './releasesSlice';
 import { createReleasesSlice } from './releasesSlice';
-import type { DonationSlice } from './donationSlice';
-import { createDonationSlice } from './donationSlice';
 
 export type AppStore = PrefsSlice &
   GlossarySlice &
@@ -59,8 +57,7 @@ export type AppStore = PrefsSlice &
   LongformSlice &
   UpdaterSlice &
   GallerySlice &
-  ReleasesSlice &
-  DonationSlice;
+  ReleasesSlice;
 
 export const APP_STORE_KEY = 'omnivoice.app';
 
@@ -147,7 +144,6 @@ export const useAppStore = create<AppStore>()(
       ...createUpdaterSlice(set, get, api), // transient — not in partialize
       ...createGallerySlice(set, get, api),
       ...createReleasesSlice(set, get, api), // transient — not in partialize
-      ...createDonationSlice(set, get, api),
     }),
     {
       name: APP_STORE_KEY,
@@ -231,15 +227,6 @@ export const useAppStore = create<AppStore>()(
         lastOutputScript: s.lastOutputScript,
         lastOutputChapters: s.lastOutputChapters,
         projectMode: s.projectMode,
-        // Donation prompt state (#007) — persist everything EXCEPT
-        // `shownThisSession` so the ≤1/session cap resets on every launch.
-        successCount: s.successCount,
-        dubCount: s.dubCount,
-        firstSuccessAt: s.firstSuccessAt,
-        lastShownAt: s.lastShownAt,
-        shownCount: s.shownCount,
-        firedMilestones: s.firedMilestones,
-        optedOut: s.optedOut,
       }),
       version: 9,
       // IndexedDB hydration is asynchronous. Bootstrap resolves main/widget
