@@ -41,7 +41,9 @@ audio or a locked take. Search by the saved profile name, select it, and upload 
 record the source clip. Designed voices use their saved sample and instructions;
 legacy designs without a sample fall back to their saved instructions and seed.
 A ready TTS engine with cloning support is still required. Conversion transcribes
-the source and synthesizes its text in the selected voice. Match duration adjusts
+the source and synthesizes its text in the selected voice. In every mode a source
+may be up to 10 minutes long and up to 4 GB; a longer or unreadable clip is refused
+before anything is transcribed or converted. Match duration adjusts
 the overall length; it does not preserve the original performance's pitch, pauses,
 or expression. The result has the same Download action as Clone and Design takes:
 in the desktop app it opens the native save dialog for the WAV file and records the

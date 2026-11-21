@@ -164,6 +164,7 @@ def _wire_stubs(monkeypatch, *, engine_cls, asr):
     monkeypatch.setenv("OMNIVOICE_TTS_BACKEND", engine_cls.id)
     monkeypatch.setattr(ab, "asr_model_missing_error", lambda **kw: None)
     monkeypatch.setattr(ab, "load_active_asr_backend", lambda **kw: asr)
+    _stub_decode(monkeypatch, 1.0)  # the uploads below are not real audio
 
 
 def _post_convert(client, pid, **extra):
@@ -412,7 +413,7 @@ def test_convert_rejects_oversized_upload_before_engine_work(
 ):
     """The bounded copy returns 413 before loading ASR or TTS."""
     vc = _vc_mod()
-    monkeypatch.setattr(vc, "_MAX_SOURCE_AUDIO_BYTES", 8)
+    monkeypatch.setattr(vc, "_MAX_SOURCE_BYTES", 8)
 
     fake = _make_fake_engine(f"fake-conv-{uuid.uuid4().hex[:6]}")
     asr = _FakeASR({"text": "should not run"})
@@ -420,7 +421,66 @@ def test_convert_rejects_oversized_upload_before_engine_work(
 
     res = _post_convert(client, clone_profile)
     assert res.status_code == 413
-    assert "maximum 64 MB" in res.json()["detail"]
+    assert "maximum 4 GB" in res.json()["detail"]
+    assert asr.calls == []
+    assert fake.calls == []
+
+
+def test_source_upload_accepts_recordings_over_64_mb():
+    """Size is not the limit: a 10-minute hi-res WAV is ~350 MB (was a 64 MB 413)."""
+    vc = _vc_mod()
+    block = b"\0" * vc._UPLOAD_CHUNK_BYTES
+
+    class _Upload:
+        def __init__(self, chunks):
+            self.left = chunks
+
+        async def read(self, size):
+            self.left -= 1
+            return block if self.left >= 0 else b""
+
+    class _Sink:
+        def write(self, chunk):
+            pass
+
+    size = 65 * 1024 * 1024
+    assert asyncio.run(vc._copy_source_upload(_Upload(size // len(block)), _Sink())) == size
+
+
+def test_convert_refuses_an_overlong_source_before_any_model_work(
+    client, monkeypatch, clone_profile,
+):
+    """Re-speak shares Keep my delivery's length limit, checked before ASR/TTS."""
+    import services.voice_conversion as conv
+
+    fake = _make_fake_engine(f"fake-conv-{uuid.uuid4().hex[:6]}")
+    asr = _FakeASR({"text": "should not run"})
+    _wire_stubs(monkeypatch, engine_cls=fake, asr=asr)
+    monkeypatch.setattr(conv, "MAX_SOURCE_S", 5.0)
+    _stub_decode(monkeypatch, 30.0)
+
+    res = _post_convert(client, clone_profile)
+    assert res.status_code == 422
+    assert res.json()["detail"] == conv.source_too_long_message()
+    assert asr.calls == []
+    assert fake.calls == []
+
+
+def test_convert_unreadable_source_is_422_before_any_model_work(client, monkeypatch, clone_profile):
+    import services.voice_conversion as conv
+
+    fake = _make_fake_engine(f"fake-conv-{uuid.uuid4().hex[:6]}")
+    asr = _FakeASR({"text": "should not run"})
+    _wire_stubs(monkeypatch, engine_cls=fake, asr=asr)
+
+    async def _unreadable(path, sr, *, max_s=None):
+        raise ValueError("This recording could not be read.")
+
+    monkeypatch.setattr(conv, "decode_mono", _unreadable)
+
+    res = _post_convert(client, clone_profile)
+    assert res.status_code == 422
+    assert "could not be read" in res.json()["detail"]
     assert asr.calls == []
     assert fake.calls == []
 
@@ -428,7 +488,7 @@ def test_convert_rejects_oversized_upload_before_engine_work(
 def test_source_upload_is_read_in_bounded_chunks(monkeypatch):
     """The upload reader never requests or retains the complete body."""
     vc = _vc_mod()
-    monkeypatch.setattr(vc, "_MAX_SOURCE_AUDIO_BYTES", 8)
+    monkeypatch.setattr(vc, "_MAX_SOURCE_BYTES", 8)
     monkeypatch.setattr(vc, "_UPLOAD_CHUNK_BYTES", 4)
 
     class _Upload:

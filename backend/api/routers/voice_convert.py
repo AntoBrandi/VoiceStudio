@@ -62,31 +62,27 @@ ATEMPO_MAX = 2.0
 #: would resample the whole take for an inaudible gain.
 _MATCH_TOLERANCE = 0.02
 
-#: Convert clips are short conversational inputs, not long-form media. Stream
-#: them to disk in bounded chunks so a network-share client cannot make the
-#: backend materialize an arbitrarily large multipart upload in memory.
-_MAX_SOURCE_AUDIO_BYTES = 64 * 1024 * 1024
-#: A video swap (#3750) streams the same way, with room for a real video.
-_MAX_SOURCE_VIDEO_BYTES = 4 * 1024 * 1024 * 1024
+#: Upload ceiling for every source: audio or video, either mode. The product
+#: limit is the speech length (``voice_conversion.MAX_SOURCE_S``, checked on
+#: the decoded audio); this only stops a network-share client from filling the
+#: disk. A byte cap per format would refuse real recordings under the length
+#: limit (10 minutes of 96 kHz 24-bit stereo WAV is about 350 MB).
+_MAX_SOURCE_BYTES = 4 * 1024 * 1024 * 1024
 _UPLOAD_CHUNK_BYTES = 1024 * 1024
 
 
-async def _copy_source_upload(audio: UploadFile, destination, *, video: bool = False) -> int:
-    """Stream ``audio`` into ``destination`` with the Convert upload cap."""
-    limit = _MAX_SOURCE_VIDEO_BYTES if video else _MAX_SOURCE_AUDIO_BYTES
+async def _copy_source_upload(audio: UploadFile, destination) -> int:
+    """Stream ``audio`` into ``destination`` in bounded chunks, up to the cap."""
     total = 0
     while True:
         chunk = await audio.read(_UPLOAD_CHUNK_BYTES)
         if not chunk:
             return total
         total += len(chunk)
-        if total > limit:
+        if total > _MAX_SOURCE_BYTES:
             raise HTTPException(
                 status_code=413,
-                detail=(
-                    "Source video is too large (maximum 4 GB)."
-                    if video else "Source audio is too large (maximum 64 MB)."
-                ),
+                detail="The source file is too large (maximum 4 GB).",
             )
         destination.write(chunk)
 
@@ -458,7 +454,8 @@ async def convert_speech(
     An MP4/MOV/M4V/MKV upload (#3750) always runs that path on the video's
     soundtrack and returns ``video_url`` (picture stream-copied, background
     kept when Demucs is installed) plus ``notes``/``message`` for any fallback
-    taken; other video containers get a 415.
+    taken; other video containers get a 415. Every source may be up to 4 GB
+    (413 above) and 10 minutes of audio (422 above, before any model loads).
 
     Returns JSON ``{audio_url, text, duration_s, id}`` — the take is saved to
     OUTPUTS_DIR and served from the ``/audio`` mount like every other take.
@@ -494,7 +491,7 @@ async def convert_speech(
     source_lease = None
     try:
         try:
-            await _copy_source_upload(audio, tmp, video=is_video)
+            await _copy_source_upload(audio, tmp)
         finally:
             tmp.close()
         source_lease = _TempReferenceLease(tmp.name)
@@ -503,6 +500,15 @@ async def convert_speech(
         # could not stay in sync with the picture (#3750).
         if keep_delivery or is_video:
             return await _convert_keeping_delivery(row, profile_id, tmp.name, video=is_video)
+
+        # Same length limit as Keep my delivery, measured before any model
+        # loads so an overlong or unreadable clip fails in seconds, not after
+        # a full transcription.
+        from services.voice_conversion import ensure_source_length
+        try:
+            await ensure_source_length(tmp.name)
+        except ValueError as e:
+            raise HTTPException(status_code=422, detail=str(e)) from e
 
         # ── Engine gate before ASR/TTS work: the shared resolver refuses a
         # clone-less engine with the actionable switch-engine message (→ 400),

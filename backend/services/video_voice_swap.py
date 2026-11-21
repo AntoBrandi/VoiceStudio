@@ -215,7 +215,11 @@ async def swap_video_voice(
     or too-long soundtrack, unreadable file); everything else degrades.
     """
     from services.ffmpeg_utils import require_audio_stream, validate_media_source
-    from services.voice_conversion import MAX_SOURCE_S, convert_recording
+    from services.voice_conversion import (
+        MAX_SOURCE_S,
+        convert_recording,
+        source_too_long_message,
+    )
 
     await asyncio.to_thread(validate_media_source, video_path)
     await asyncio.to_thread(require_audio_stream, video_path)
@@ -225,10 +229,7 @@ async def swap_video_voice(
     import soundfile as sf
 
     if await asyncio.to_thread(lambda: sf.info(track).duration) > MAX_SOURCE_S:
-        raise ValueError(
-            f"The source clip is longer than {int(MAX_SOURCE_S // 60)} minutes. "
-            "Trim it, or convert it in parts."
-        )
+        raise ValueError(source_too_long_message())
 
     notes: list = []
     split = await separate_vocals(track, workdir)
