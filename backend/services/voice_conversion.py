@@ -35,9 +35,11 @@ _CAP_MARGIN_S = 2.0
 #: A split is placed at the quietest frame in this last stretch of a chunk.
 _SPLIT_SEARCH_S = 6.0
 _FRAME_S = 0.02
-#: Longest source recording one Keep my delivery request converts. Longer
+#: Longest source recording one Convert request takes, in every mode. Longer
 #: uploads would decode to gigabytes of samples and queue hundreds of jobs.
 MAX_SOURCE_S = 600.0
+#: Rate a source is decoded at only to measure its length.
+_MEASURE_SR = 8_000
 #: The reference clip is trimmed to this length (the tokenizer cap minus margin).
 MAX_REF_S = 28.0
 #: Speech runs at roughly this many characters a second. Used to give each
@@ -134,6 +136,24 @@ async def decode_mono(path: str, sr: int, *, max_s: Optional[float] = None) -> n
     return np.frombuffer(stdout, dtype="<f4").astype(np.float32, copy=True)
 
 
+def source_too_long_message() -> str:
+    return (
+        f"The source clip is longer than {int(MAX_SOURCE_S // 60)} minutes. "
+        "Trim it, or convert it in parts."
+    )
+
+
+async def ensure_source_length(path: str) -> None:
+    """Raise ``ValueError`` when ``path`` is unreadable or over ``MAX_SOURCE_S``.
+
+    Measures the decoded audio, not container metadata, so recordings without
+    a duration header (browser WebM) are measured too.
+    """
+    audio = await decode_mono(path, _MEASURE_SR, max_s=MAX_SOURCE_S + 1.0)
+    if audio.size > int(MAX_SOURCE_S * _MEASURE_SR):
+        raise ValueError(source_too_long_message())
+
+
 def _write_wav(path: str, audio: np.ndarray, sr: int) -> None:
     from services.audio_io import _safe_soundfile_write
 
@@ -158,10 +178,7 @@ async def convert_recording(
 
     source = await decode_mono(source_path, DECODE_SR, max_s=MAX_SOURCE_S + 1.0)
     if source.size > int(MAX_SOURCE_S * DECODE_SR):
-        raise ValueError(
-            f"The source clip is longer than {int(MAX_SOURCE_S // 60)} minutes. "
-            "Trim it, or convert it in parts."
-        )
+        raise ValueError(source_too_long_message())
     if source.size == 0 or float(np.max(np.abs(source))) < 1e-4:
         raise ValueError(
             "The source clip is silent, so there is nothing to convert. Record "
