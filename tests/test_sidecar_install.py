@@ -2138,6 +2138,12 @@ def test_engines_dir_env_relocates_managed_roots(monkeypatch, tmp_path):
         "\"Microsoft C++ Build Tools\"",
         "xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools)",
         "error: command 'c++' failed: No such file or directory",
+        # Newer setuptools (the wording a real CosyVoice install printed).
+        "error: [Errno 2] No such file or directory: 'c++'",
+        "error: [Errno 2] No such file or directory: 'x86_64-linux-gnu-gcc'",
+        "error: command '/usr/bin/gcc-12' failed: No such file or directory",
+        "unable to execute 'clang': No such file or directory",
+        "g++: fatal error: cannot execute 'cc1plus': execvp: No such file or directory",
     ],
 )
 def test_missing_compiler_names_the_build_tools(monkeypatch, line):
@@ -2169,4 +2175,10 @@ def test_missing_compiler_remediation_per_platform():
     assert not si._output_shows_missing_compiler([
         "pyworld.cpp(12): error C2065: 'foo': undeclared identifier",
         "error: command 'C:\\BuildTools\\VC\\bin\\cl.exe' failed with exit code 2",
+        "error: command '/usr/bin/gcc' failed with exit code 1",
+    ])
+    # Other missing files are not a missing compiler.
+    assert not si._output_shows_missing_compiler([
+        "FileNotFoundError: [Errno 2] No such file or directory: 'ffmpeg'",
+        "error: [Errno 2] No such file or directory: 'requirements-cc.txt'",
     ])
