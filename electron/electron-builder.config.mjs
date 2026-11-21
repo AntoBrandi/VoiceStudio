@@ -14,7 +14,7 @@ import { assertBundleSymlinks } from './packaging/bundle-symlinks.mjs';
 import { finalizeOmnivoiceTts, omnivoiceTtsResources, signMac } from './omnivoice-tts-bundle.mjs';
 import { repairSnapArtifacts } from './snap-template-payload.mjs';
 import { signMasRuntime } from './mas-runtime-bundle.mjs';
-import { APP_ID, PRODUCT_NAME } from '../config/app-config.mjs';
+import { APP_ID, PRODUCT_NAME, RELEASES_URL } from '../config/app-config.mjs';
 import { DISTRIBUTION_PROFILE, DISTRIBUTION_TARGET } from '../config/distributions.mjs';
 import { writeSupermetryConfig } from '../config/supermetry-app.mjs';
 
@@ -55,7 +55,7 @@ if (
 ) {
   throw new Error(`Unsupported Electron update channel: ${updateChannel}`);
 }
-const updateUrl = 'https://github.com/debpalash/VoiceStudio/releases/latest/download';
+const updateUrl = `${RELEASES_URL}/latest/download`;
 
 export function distributionPackaging(target = DISTRIBUTION_TARGET) {
   if (target === 'snap-store') {

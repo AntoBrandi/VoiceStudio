@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { primaryUpdateAction, runUpdateAction } from '@/lib/update-actions';
 import { updateErrorTitleKey } from '@/lib/update-format';
+import { RELEASES_URL } from '@shared/app-config';
 import { DISCORD_URL, ISSUES_URL } from '@shared/utils/contactLinks';
 import type { BackendStatus, UpdateState } from '../../../preload/index.d';
 import { appVersion, getBridge, platformFamily } from './bridge';
@@ -23,8 +24,8 @@ const TROUBLESHOOTING = `${REPO}/blob/main/docs/install/troubleshooting.md`;
  */
 export function releaseNotesUrl(version: string, isDev: boolean): string {
   return !isDev && /^\d+\.\d+\.\d+(-beta\.\d+)?$/.test(version)
-    ? `${REPO}/releases/tag/v${version}`
-    : `${REPO}/releases`;
+    ? `${RELEASES_URL}/tag/v${version}`
+    : RELEASES_URL;
 }
 
 /** Version and channel beside the logo on the setup screen, with a link to its notes. */
