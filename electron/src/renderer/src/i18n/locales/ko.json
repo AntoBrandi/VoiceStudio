@@ -2434,7 +2434,6 @@
   "support": {
     "tab_support": "지원",
     "other_ways": "도움을 줄 수 있는 다른 방법",
-    "star_short": "스타",
     "sponsors_tier_strategic": "전략",
     "sponsors_tier_company": "기업",
     "sponsors_tier_development": "개발",
@@ -2957,8 +2956,6 @@
     "free": "무료",
     "pro": "Pro",
     "get_pro": "Pro 받기",
-    "upgrade_pro": "Pro로 업그레이드",
-    "get_pro_app": "Pro 앱 받기",
     "sponsor_bar": "스폰서 바",
     "visible": "표시됨",
     "hideable": "숨길 수 있음",

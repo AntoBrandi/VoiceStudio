@@ -30,10 +30,6 @@ page.on('response', (response) => {
 });
 
 try {
-  // The GitHub star badge fetches the public star count; keep the smoke offline and deterministic.
-  await page.route('https://api.github.com/**', (route) =>
-    route.fulfill({ json: { stargazers_count: 1234 } }),
-  );
   await page.addInitScript(() => {
     localStorage.setItem('voicestudio.setup.complete.v1', '1');
   });

@@ -748,8 +748,6 @@ test-only PR. Docker Hub overview edits still publish through the small
     still requires diagnostics consent. Withdrawal stops delivery and invalidates queued reports.
     No audio, text, exception messages, logs, user paths, credentials, screenshots
     or crash dumps are uploaded; see `docs/electron-privacy.md`.
-  - The GitHub star count (no credentials or referrer, refreshed every 20
-    minutes while shown).
 
   Adding to this list needs owner approval. Never log or persist secrets or
   absolute home paths.

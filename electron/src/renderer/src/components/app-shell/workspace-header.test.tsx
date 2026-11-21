@@ -3,7 +3,6 @@ import { afterEach, expect, it, vi } from 'vitest';
 
 vi.mock('react-i18next', () => ({ useTranslation: () => ({ t: (key: string) => key }) }));
 vi.mock('@/components/bridge', () => ({ isMac: () => true }));
-vi.mock('./support-shortcut', () => ({ SupportShortcut: () => null }));
 vi.mock('./sidebar-toggle', () => ({ SidebarToggle: () => null }));
 
 import { WorkspaceHeader } from './workspace-header';

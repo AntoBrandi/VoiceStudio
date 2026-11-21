@@ -16,7 +16,7 @@ import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 import { DEFAULT_FIXTURES, startHealthBackend } from './fake-health-backend.mjs';
 import { forceAndWaitForExit } from './desktop-harness-exit.mjs';
-import { isAllowedRequest, STAR_COUNT_STUB, STAR_COUNT_URL } from './local-first.mjs';
+import { isAllowedRequest } from './local-first.mjs';
 
 const workspaceRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 export const ARTIFACT_DIR = join(workspaceRoot, 'electron/test-results', process.platform);
@@ -116,7 +116,6 @@ async function launch({ profile, backendPort, seed }) {
   }
   const context = app.context();
   await context.tracing.start({ screenshots: true, snapshots: true });
-  await context.route(STAR_COUNT_URL, (route) => route.fulfill({ json: STAR_COUNT_STUB }));
   if (seed) {
     // Only fill gaps: this runs on every page load and must not undo what a test persisted.
     await context.addInitScript(() => {
