@@ -1253,22 +1253,32 @@ _MISSING_COMPILER_MARKERS = (
     "unable to find vcvarsall.bat",
     "xcrun: error: invalid active developer path",
     "no developer tools were found",
-    "unable to execute 'gcc'",
-    "unable to execute 'g++'",
-    "unable to execute 'c++'",
-    "command 'gcc' failed: no such file",
-    "command 'g++' failed: no such file",
-    "command 'c++' failed: no such file",
     "unknown compiler(s)",
     "no cmake_cxx_compiler could be found",
     "no cmake_c_compiler could be found",
+    # gcc is installed but its C++ front end (g++) is not.
+    "cannot execute 'cc1plus'",
+    "error trying to exec 'cc1plus'",
+)
+# A Unix compiler executable, as setuptools names it: optionally a path or a
+# target prefix (x86_64-linux-gnu-gcc) and a version suffix (gcc-12).
+_UNIX_COMPILER = r"(?:[^'\s]*[/-])?(?:gcc|g\+\+|c\+\+|cc|clang|clang\+\+)(?:-\d+)?"
+# Each wording setuptools has used for "that compiler is not installed".
+# Newer setuptools says "[Errno 2] No such file or directory: 'c++'".
+_MISSING_UNIX_COMPILER = re.compile(
+    rf"unable to execute '{_UNIX_COMPILER}'"
+    rf"|command '{_UNIX_COMPILER}' failed: no such file"
+    rf"|no such file or directory: '{_UNIX_COMPILER}'"
 )
 
 
 def _output_shows_missing_compiler(lines: Iterable[str]) -> bool:
     """True when a failing build's own output says no compiler is installed."""
     text = "\n".join(lines).lower()
-    return any(marker in text for marker in _MISSING_COMPILER_MARKERS)
+    return (
+        any(marker in text for marker in _MISSING_COMPILER_MARKERS)
+        or _MISSING_UNIX_COMPILER.search(text) is not None
+    )
 
 
 def _missing_compiler_remediation(platform: str = sys.platform) -> str:
