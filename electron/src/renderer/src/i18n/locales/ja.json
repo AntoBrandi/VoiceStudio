@@ -144,8 +144,6 @@
     "maintainerShimul": "Shimul Debnath",
     "follow": "フォロー",
     "website": "ウェブサイト",
-    "hideUntilUpdate": "次のアップデートまで非表示",
-    "hideThanks": "コントリビューターを訪ねてくれてありがとう！次のアップデートでまた表示されます。",
     "hoHoHo": "ホッホッホー！"
   },
   "twilioIntegration": {
@@ -2416,20 +2414,7 @@
     "coffee_desc": "チームにコーヒーをおごってください。アカウントは必要ありません。",
     "paypal_desc": "PayPal 経由で簡単に 1 回限りまたは定期的に実行できます。",
     "platforms": "プラットフォーム",
-    "footer": "あらゆる貢献は、ローカル AI の限界を押し広げるのに役立ちます。",
-    "suggested_title": "金額を選択してください",
-    "custom": "カスタム",
-    "choose_method": "与え方を選ぶ",
-    "choose_method_amount": "${{amount}} に進む",
-    "goal": {
-      "title": "VoiceStudio の開発を支援",
-      "of": "の",
-      "per_month": "/月",
-      "aria": "月間目標 {{raised}}/{{goal}}",
-      "met": "🎉 目標達成 — {{raised}} が発生しました。ありがとう！",
-      "social_proof_one": "ローカル AI を支える {{count}} 人のサポーターに加わろう",
-      "social_proof_other": "ローカル AI を支える {{count}} 人のサポーターに加わろう"
-    }
+    "footer": "あらゆる貢献は、ローカル AI の限界を押し広げるのに役立ちます。"
   },
   "support": {
     "tab_support": "サポート",
@@ -2438,20 +2423,7 @@
     "other_ways": "その他の支援方法",
     "star_github": "GitHub でスターを付ける",
     "join_discord": "Discordに参加する",
-    "sponsors_title": "スポンサー",
-    "sponsors_lead": "VoiceStudio を無料、ローカル、オープンソースで維持している企業や人々。",
-    "sponsors_empty_title": "最初に VoiceStudio のスポンサーになりましょう",
-    "sponsors_empty_desc": "あなたのロゴはここにあります",
-    "sponsors_become": "スポンサーになる",
-    "sponsors_become_aria": "スポンサーになる — ブラウザで事前に入力された GitHub 号を開きます",
-    "sponsors_perk": "スポンサーは、アプリ、README、およびプロジェクト サイトのスロットでロゴを取得します。",
-    "sponsors_learn_more": "スポンサーが得られるもの",
-    "sponsors_logo_aria": "VoiceStudio スポンサーである {{name}} にアクセスしてください",
-    "sponsors_tier_strategic": "戦略",
-    "sponsors_tier_company": "企業",
-    "sponsors_tier_development": "開発",
-    "sponsors_tier_community": "コミュニティ",
-    "sponsors_tier_supporter": "サポーター"
+    "sponsors_tier_strategic": "戦略"
   },
   "reportBug": {
     "native_fault_cause": "ネイティブ障害：Python より下位の層でプロセスが異常終了したため、Python のトレースバックはありません。",
@@ -2951,14 +2923,10 @@
     "fitting": "タイミングを調整中"
   },
   "supportPlans": {
-    "remove": "スポンサー欄を非表示にする",
     "title": "無料版とProの比較",
     "free": "無料",
     "pro": "Pro",
     "get_pro": "Pro を入手",
-    "sponsor_bar": "スポンサー欄",
-    "visible": "表示",
-    "hideable": "非表示にできます",
     "unavailable": "Proの有効化はまだ設定されていません。",
     "telemetry": "テレメトリ",
     "opt_in": "任意・同意が必要",

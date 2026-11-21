@@ -1,6 +1,5 @@
 """Offline support content and native packaging share one committed catalog."""
 import json
-import re
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -14,10 +13,10 @@ def lookup(data, key):
     return data
 
 
-def test_support_catalog_uses_existing_donation_destinations():
+def test_support_catalog_destinations_are_https():
+    # The desktop app no longer carries donation links; this catalog is the phones' only source.
     data = json.loads((CONTRACT / "support.json").read_text(encoding="utf-8"))
-    source = (ROOT / "electron/src/shared/utils/donateLinks.js").read_text(encoding="utf-8")
-    assert {row["url"] for row in data["donations"]} == set(re.findall(r"export const \w+ = '(https://[^']+)'", source))
+    assert len({row["url"] for row in data["donations"]}) == len(data["donations"])
     assert len({row["id"] for row in data["projects"]}) == len(data["projects"])
     assert {row["name"] for row in data["projects"]} == {"OpenGTM", "Opal", "Supermetry", "Spicrawl"}
     for row in data["donations"] + data["projects"]:

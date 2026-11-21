@@ -144,8 +144,6 @@
     "maintainerShimul": "Shimul Debnath",
     "follow": "Стежити",
     "website": "Сайт",
-    "hideUntilUpdate": "Сховати до наступного оновлення",
-    "hideThanks": "Дякуємо, що завітали до наших учасників! Це повернеться з наступним оновленням.",
     "hoHoHo": "Хо-хо-хо!"
   },
   "twilioIntegration": {
@@ -2440,22 +2438,7 @@
     "coffee_desc": "Купіть команді каву. Обліковий запис не потрібен.",
     "paypal_desc": "Швидкий одноразовий або повторюваний через PayPal.",
     "platforms": "Платформи",
-    "footer": "Кожен внесок допомагає розширити межі місцевого ШІ.",
-    "suggested_title": "Виберіть суму",
-    "custom": "Custom",
-    "choose_method": "Виберіть, як дарувати",
-    "choose_method_amount": "Продовжити з ${{amount}}",
-    "goal": {
-      "title": "Підтримайте розробку VoiceStudio",
-      "of": "з",
-      "per_month": "/ місяць",
-      "aria": "{{raised}} з {{goal}} місячної цілі",
-      "met": "🎉 Мета досягнута — {{raised}} піднято. дякую!",
-      "social_proof_one": "Приєднуйтеся до {{count}} прихильника локального ШІ",
-      "social_proof_few": "Приєднуйтеся до {{count}} прихильників локального ШІ",
-      "social_proof_many": "Приєднуйтеся до {{count}} прихильників локального ШІ",
-      "social_proof_other": "Приєднуйтеся до {{count}} прихильників локального ШІ"
-    }
+    "footer": "Кожен внесок допомагає розширити межі місцевого ШІ."
   },
   "support": {
     "tab_support": "Підтримка",
@@ -2464,20 +2447,7 @@
     "other_ways": "Інші способи допомоги",
     "star_github": "Зірка на GitHub",
     "join_discord": "Приєднуйтесь до Discord",
-    "sponsors_title": "Спонсори",
-    "sponsors_lead": "Компанії та люди, які підтримують VoiceStudio безкоштовний, локальний і відкритий код.",
-    "sponsors_empty_title": "Будьте першим спонсором VoiceStudio",
-    "sponsors_empty_desc": "Ваш логотип тут",
-    "sponsors_become": "Стати спонсором",
-    "sponsors_become_aria": "Стати спонсором — відкриває попередньо заповнений випуск GitHub у вашому браузері",
-    "sponsors_perk": "Спонсори отримують свій логотип у програмі, у README та слот на сайті проекту.",
-    "sponsors_learn_more": "Що отримують спонсори",
-    "sponsors_logo_aria": "Відвідайте {{name}}, спонсора VoiceStudio",
-    "sponsors_tier_strategic": "Стратегічний",
-    "sponsors_tier_company": "Компанія",
-    "sponsors_tier_development": "Розробка",
-    "sponsors_tier_community": "Спільнота",
-    "sponsors_tier_supporter": "Прихильник"
+    "sponsors_tier_strategic": "Стратегічний"
   },
   "reportBug": {
     "native_fault_cause": "Збій нативного коду: процес аварійно завершився нижче рівня Python, тому трасування Python недоступне.",
@@ -2977,14 +2947,10 @@
     "fitting": "Налаштування часу"
   },
   "supportPlans": {
-    "remove": "Прибрати панель спонсорів",
     "title": "Безкоштовна версія та Pro",
     "free": "Безкоштовно",
     "pro": "Pro",
     "get_pro": "Отримати Pro",
-    "sponsor_bar": "Панель спонсорів",
-    "visible": "Видима",
-    "hideable": "Можна приховати",
     "unavailable": "Активацію Pro ще не налаштовано.",
     "telemetry": "Телеметрія",
     "opt_in": "Необов’язкова, за згодою",

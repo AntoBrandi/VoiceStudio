@@ -144,8 +144,6 @@
     "maintainerShimul": "Shimul Debnath",
     "follow": "Folgen",
     "website": "Website",
-    "hideUntilUpdate": "Bis zum nächsten Update ausblenden",
-    "hideThanks": "Danke, dass du unsere Mitwirkenden besucht hast! Das kommt mit dem nächsten Update zurück.",
     "hoHoHo": "Ho ho ho!"
   },
   "twilioIntegration": {
@@ -2416,20 +2414,7 @@
     "coffee_desc": "Laden Sie dem Team einen Kaffee ein. Kein Konto erforderlich.",
     "paypal_desc": "Schnell einmalig oder wiederkehrend per PayPal.",
     "platforms": "Plattformen",
-    "footer": "Jeder Beitrag trägt dazu bei, die Grenzen der lokalen KI zu erweitern.",
-    "suggested_title": "Wählen Sie einen Betrag",
-    "custom": "Benutzerdefiniert",
-    "choose_method": "Wählen Sie, wie Sie geben möchten",
-    "choose_method_amount": "Weiter mit ${{amount}}",
-    "goal": {
-      "title": "Unterstütze die Entwicklung von VoiceStudio",
-      "of": "von",
-      "per_month": "/ Monat",
-      "aria": "{{raised}} von {{goal}} Monatsziel",
-      "met": "🎉 Ziel erreicht – {{raised}} erhöht. Danke schön!",
-      "social_proof_one": "Schließe dich {{count}} Unterstützer an, der lokale KI finanziert",
-      "social_proof_other": "Schließe dich {{count}} Unterstützern an, die lokale KI finanzieren"
-    }
+    "footer": "Jeder Beitrag trägt dazu bei, die Grenzen der lokalen KI zu erweitern."
   },
   "support": {
     "tab_support": "Unterstützung",
@@ -2438,20 +2423,7 @@
     "other_ways": "Andere Möglichkeiten zu helfen",
     "star_github": "Stern auf GitHub",
     "join_discord": "Treten Sie Discord bei",
-    "sponsors_title": "Sponsoren",
-    "sponsors_lead": "Die Unternehmen und Personen halten VoiceStudio kostenlos, lokal und Open Source.",
-    "sponsors_empty_title": "Seien Sie der Erste, der VoiceStudio sponsert",
-    "sponsors_empty_desc": "Ihr Logo hier",
-    "sponsors_become": "Werden Sie Sponsor",
-    "sponsors_become_aria": "Sponsor werden – öffnet eine vorab ausgefüllte GitHub-Ausgabe in Ihrem Browser",
-    "sponsors_learn_more": "Was Sponsoren bekommen",
-    "sponsors_logo_aria": "Besuchen Sie {{name}}, einen VoiceStudio-Sponsor",
-    "sponsors_perk": "Sponsoren erhalten ihr Logo in der App, imREADMEund einen Slot auf der Projektseite.",
-    "sponsors_tier_strategic": "Strategisch",
-    "sponsors_tier_company": "Unternehmen",
-    "sponsors_tier_development": "Entwicklung",
-    "sponsors_tier_community": "Community",
-    "sponsors_tier_supporter": "Unterstützer"
+    "sponsors_tier_strategic": "Strategisch"
   },
   "reportBug": {
     "native_fault_cause": "Nativer Fehler: Der Prozess ist unterhalb von Python abgestürzt, daher ist kein Python-Traceback verfügbar.",
@@ -2951,14 +2923,10 @@
     "fitting": "Timing anpassen"
   },
   "supportPlans": {
-    "remove": "Sponsorenleiste entfernen",
     "title": "Free und Pro im Vergleich",
     "free": "Kostenlos",
     "pro": "Pro",
     "get_pro": "Pro holen",
-    "sponsor_bar": "Sponsorenleiste",
-    "visible": "Sichtbar",
-    "hideable": "Ausblendbar",
     "unavailable": "Die Pro-Aktivierung ist noch nicht eingerichtet.",
     "telemetry": "Telemetrie",
     "opt_in": "Optional, nur mit Zustimmung",

@@ -3,12 +3,9 @@
 import base64
 import argparse
 import hashlib
-import importlib.util
 import json
 import re
-import subprocess
 import sys
-from collections import Counter
 from pathlib import Path
 from urllib.parse import urlparse
 from check_electron_release_assets import verify_release
@@ -34,119 +31,11 @@ def channel_for(version):
         return "beta"
     raise ValueError(f"Not a stable or beta release version: {version}")
 
-def _gh(*args):
-    return subprocess.run(["gh", *args], capture_output=True, text=True, check=True).stdout
-
-
-# The same agent list the commit-identity gate uses: agents are never credited.
-_spec = importlib.util.spec_from_file_location(
-    "agent_identities", Path(__file__).resolve().parents[1] / ".github" / "scripts" / "agent_identities.py")
-agents = importlib.util.module_from_spec(_spec)
-_spec.loader.exec_module(agents)
-# GitHub's login for commits whose author email is not linked to any account.
-UNLINKED_LOGIN = "invalid-email-address"
-
-
-def is_credit_worthy(login):
-    """People only: no bots, no AI agents, no unlinked-commit placeholder."""
-    name = login.removeprefix("app/").lower()
-    return not (login.startswith("app/") or name.endswith("[bot]")
-                or name in agents.AGENT_LOGINS or name == UNLINKED_LOGIN)
-
-
-def notes_with_contributors(notes, repo, tag, gh=_gh, head=None):
-    """`notes` plus a `### Contributors` block, or `notes` unchanged.
-
-    A hand-written block (with roles and reporters) always wins, so the automatic
-    one is only assembled when the notes do not already carry a Contributors
-    heading.
-
-    Credits must never block a release, which is why the guard is not narrowed to
-    the exceptions the GitHub CLI raises: assembling the block can also fail on an
-    unexpected answer shape or a parsing bug, and a release whose notes are ready
-    should still be prepared, with the omission reported as a warning.
-    """
-    if not repo or re.search(r"^#{2,4} Contributors", notes, re.M):
-        return notes
-    try:
-        block = contributors_section(repo, tag, gh, head=head)
-    except Exception as error:  # noqa: BLE001 - credits must never block a release
-        print(f"::warning::Contributors section skipped: {error!r}", file=sys.stderr)
-        return notes
-    return f"{notes}\n{block}" if block else notes
-
-
-def contributors_section(repo, tag, gh=_gh, head=None):
-    """A `### Contributors` block for everyone who contributed since the last stable release.
-
-    Two sources, because either alone misses people: commit authors in the tag
-    comparison (ranked by commit count), then authors of PRs merged since that
-    release whose commits are not linked to their GitHub account. The base is the
-    latest published stable release, so a beta and a stable release both cover the
-    whole span since the previous stable. Bots, AI agents and unlinked placeholders
-    are left out. Returns "" when there is nobody to thank. `head` replaces the
-    tag as the end of the comparison when the tag does not exist yet (a rehearsal).
-    """
-    raw = gh("api", f"repos/{repo}/releases/latest", "--jq", '.tag_name + " " + .published_at').split()
-    if len(raw) < 2 or not raw[1]:
-        # No published stable release yet, or `published_at` came back null/empty.
-        # There is no window to compare against, and indexing a short answer used
-        # to raise IndexError outside the caller's guard — credits must never
-        # block a release, so say so and return without a block.
-        print("::warning::Contributors section skipped: no previous stable release",
-              file=sys.stderr)
-        return ""
-    base, since = raw[0], raw[1][:10]
-    ordered = _ranked_contributors(repo, base, since, head or tag, gh)
-    if not ordered:
-        return ""
-    mentions = ", ".join(f"@{login}" for login in ordered)
-    previous = _previous_beta(repo, tag, gh)
-    if not previous:
-        return f"### Contributors\n\nThanks to everyone who contributed to this release: {mentions}\n"
-    # A beta's notes span everything since the last stable, so its full list repeats
-    # from beta to beta; name who is new since the previous beta first.
-    new = _ranked_contributors(repo, previous[0], previous[1], head or tag, gh)
-    new_line = ", ".join(f"@{login}" for login in new) if new else "no new contributors"
-    return (f"### Contributors\n\nNew since {previous[0]}: {new_line}\n\n"
-            f"Everyone who contributed since {base}: {mentions}\n")
-
-
-def _ranked_contributors(repo, base, since, head, gh):
-    commit_authors = gh("api", f"repos/{repo}/compare/{base}...{head}", "--paginate",
-                        "--jq", ".commits[].author.login // empty").split()
-    pr_authors = gh("pr", "list", "--repo", repo, "--state", "merged", "--search", f"merged:>={since}",
-                    "--limit", "1000", "--json", "author", "--jq", ".[].author.login").split()
-    counts = Counter(login for login in commit_authors if is_credit_worthy(login))
-    ordered = sorted(counts, key=lambda login: (-counts[login], login.lower()))
-    seen = {login.lower() for login in ordered}
-    for login in sorted({p for p in pr_authors if is_credit_worthy(p)}, key=str.lower):
-        if login.lower() not in seen:
-            ordered.append(login)
-            seen.add(login.lower())
-    return ordered
-
-
-def _previous_beta(repo, tag, gh):
-    """`(tag, publish date)` of the newest published earlier beta of this version, or None."""
-    match = re.fullmatch(r"(v\d+\.\d+\.\d+)-beta\.(\d+)", tag)
-    if not match:
-        return None
-    best = None
-    for line in gh("api", f"repos/{repo}/releases", "--paginate", "--jq",
-                   '.[] | select(.draft | not) | .tag_name + " " + .published_at').splitlines():
-        parts = line.split()
-        other = re.fullmatch(rf"{re.escape(match[1])}-beta\.(\d+)", parts[0]) if len(parts) == 2 else None
-        if other and int(other[1]) < int(match[2]) and (best is None or int(other[1]) > best[0]):
-            best = (int(other[1]), parts[0], parts[1][:10])
-    return best and (best[1], best[2])
-
-
-def prepare(assets, tag, sunset_tag=None, repo=None, gh=_gh, head=None, missing=None):
+def prepare(assets, tag, sunset_tag=None, missing=None):
     """Verify the assets as release `tag` and write its notes and SHA256SUMS.txt.
 
-    `head` marks a rehearsal: `tag` is the one the package version would get and
-    does not exist, so the Contributors comparison ends at that commit instead.
+    The notes are the CHANGELOG section verbatim. In a rehearsal `tag` is the one
+    the package version would get and does not exist yet.
     `missing` (rehearsals only) collects build legs that produced nothing instead
     of stopping at the first, so the legs that did build are still verified; the
     caller must fail on a non-empty list.
@@ -185,18 +74,16 @@ def prepare(assets, tag, sunset_tag=None, repo=None, gh=_gh, head=None, missing=
     if not section or not section[1].strip():
         raise ValueError("Write versioned CHANGELOG notes before release")
     notes = section[1].strip() + "\n"
-    notes = notes_with_contributors(notes, repo, tag, gh, head=head)
     (assets / "RELEASE_NOTES.md").write_text(notes, encoding="utf-8")
     (assets / "SHA256SUMS.txt").write_text("\n".join(
         f"{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.name}" for p in sorted(files)
         if p.name not in {"SHA256SUMS.txt", "RELEASE_NOTES.md"}) + "\n", encoding="utf-8")
 
 def rehearsal_target():
-    """`(tag, commit)` for a rehearsal: the tag package.json's version would get, and HEAD."""
+    """The tag package.json's version would get, for a rehearsal."""
     version = json.loads(Path("package.json").read_text(encoding="utf-8"))["version"]
     channel_for(version)  # a rehearsal needs a releasable version shape too
-    head = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True).stdout.strip()
-    return f"v{version}", head
+    return f"v{version}"
 
 
 if __name__ == "__main__":
@@ -209,7 +96,6 @@ if __name__ == "__main__":
     parser.add_argument("--missing-report", type=Path,
                         help="With --rehearsal: verify the legs that built, list the ones that did not here")
     parser.add_argument("--sunset-tag")
-    parser.add_argument("--repo", help="owner/name; adds a Contributors section from the tag comparison")
     parser.add_argument("--print-channel", action="store_true",
                         help="Print stable or beta for the package version and exit")
     args = parser.parse_args()
@@ -218,10 +104,10 @@ if __name__ == "__main__":
     elif args.missing_report and not args.rehearsal:
         parser.error("--missing-report is only for --rehearsal; a release needs every leg")
     elif args.assets and args.rehearsal:
-        tag, head = rehearsal_target()
+        tag = rehearsal_target()
         missing = [] if args.missing_report else None
         try:
-            prepare(args.assets, tag, args.sunset_tag, repo=args.repo, head=head, missing=missing)
+            prepare(args.assets, tag, args.sunset_tag, missing=missing)
         finally:
             # Also when another leg is broken: the absent legs are already known
             # and the rehearsal's last step lists them; the error still fails this step.
@@ -230,6 +116,6 @@ if __name__ == "__main__":
                 for item in missing:
                     print(f"::error::Rehearsal is missing {item}: its build leg failed", file=sys.stderr)
     elif args.assets and args.tag:
-        prepare(args.assets, args.tag, args.sunset_tag, repo=args.repo)
+        prepare(args.assets, args.tag, args.sunset_tag)
     else:
         parser.error("--assets and --tag (or --rehearsal) are required")

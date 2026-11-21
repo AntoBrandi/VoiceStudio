@@ -144,8 +144,6 @@
     "maintainerShimul": "Shimul Debnath",
     "follow": "팔로우",
     "website": "웹사이트",
-    "hideUntilUpdate": "다음 업데이트까지 숨기기",
-    "hideThanks": "기여자들을 방문해 주셔서 감사합니다! 다음 업데이트 때 다시 표시됩니다.",
     "hoHoHo": "호호호!"
   },
   "twilioIntegration": {
@@ -2416,39 +2414,13 @@
     "coffee_desc": "팀에 커피를 사주세요. 계정이 필요하지 않습니다.",
     "paypal_desc": "PayPal을 통해 빠르게 일회성 또는 반복적으로 결제할 수 있습니다.",
     "platforms": "플랫폼",
-    "footer": "모든 기여는 로컬 AI의 경계를 넓히는 데 도움이 됩니다.",
-    "suggested_title": "금액을 선택하세요",
-    "custom": "맞춤",
-    "choose_method": "주는 방법을 선택하세요",
-    "choose_method_amount": "${{amount}}로 계속",
-    "goal": {
-      "title": "VoiceStudio 개발 지원",
-      "of": "중",
-      "per_month": "/월",
-      "aria": "{{goal}} 월 목표 중 {{raised}}",
-      "met": "🎉 목표 달성 — {{raised}} 모금되었습니다. 감사합니다!",
-      "social_proof_one": "로컬 AI를 후원하는 {{count}}명의 후원자와 함께하세요",
-      "social_proof_other": "로컬 AI를 후원하는 {{count}}명의 후원자와 함께하세요"
-    }
+    "footer": "모든 기여는 로컬 AI의 경계를 넓히는 데 도움이 됩니다."
   },
   "support": {
     "tab_support": "지원",
     "other_ways": "도움을 줄 수 있는 다른 방법",
     "sponsors_tier_strategic": "전략",
-    "sponsors_tier_company": "기업",
-    "sponsors_tier_development": "개발",
-    "sponsors_tier_community": "커뮤니티",
-    "sponsors_tier_supporter": "후원자",
-    "sponsors_title": "스폰서",
     "join_discord": "Discord 참여",
-    "sponsors_become": "후원자 되기",
-    "sponsors_become_aria": "후원자 되기 — 브라우저에서 미리 작성된 GitHub 이슈를 엽니다",
-    "sponsors_empty_desc": "이곳에 로고를 표시하세요",
-    "sponsors_empty_title": "VoiceStudio의 첫 후원자가 되어 주세요",
-    "sponsors_lead": "VoiceStudio를 무료, 로컬, 오픈 소스로 유지하도록 돕는 기업과 개인입니다.",
-    "sponsors_learn_more": "후원 혜택",
-    "sponsors_logo_aria": "VoiceStudio 후원사 {{name}} 방문",
-    "sponsors_perk": "후원사의 로고는 앱과 README에 표시되며 프로젝트 사이트에도 자리가 제공됩니다.",
     "star_github": "GitHub에서 스타",
     "tab_license": "상업용 라이선스",
     "toggle_label": "후원 또는 상업용 라이선스"
@@ -2951,14 +2923,10 @@
     "fitting": "타이밍 조정 중"
   },
   "supportPlans": {
-    "remove": "스폰서 바 제거",
     "title": "무료와 Pro 비교",
     "free": "무료",
     "pro": "Pro",
     "get_pro": "Pro 받기",
-    "sponsor_bar": "스폰서 바",
-    "visible": "표시됨",
-    "hideable": "숨길 수 있음",
     "unavailable": "Pro 활성화가 아직 구성되지 않았습니다.",
     "telemetry": "사용 정보 수집",
     "opt_in": "선택 사항, 동의 필요",

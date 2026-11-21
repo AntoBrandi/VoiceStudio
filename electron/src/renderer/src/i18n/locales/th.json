@@ -144,8 +144,6 @@
     "maintainerShimul": "Shimul Debnath",
     "follow": "ติดตาม",
     "website": "เว็บไซต์",
-    "hideUntilUpdate": "ซ่อนจนถึงการอัปเดตครั้งถัดไป",
-    "hideThanks": "ขอบคุณที่แวะไปหาผู้ร่วมพัฒนาของเรา! ส่วนนี้จะกลับมาในการอัปเดตครั้งถัดไป",
     "hoHoHo": "โฮ่ โฮ่ โฮ่!"
   },
   "twilioIntegration": {
@@ -2416,20 +2414,7 @@
     "coffee_desc": "ซื้อกาแฟให้ทีม ไม่จำเป็นต้องมีบัญชี",
     "paypal_desc": "รวดเร็วเพียงครั้งเดียวหรือเกิดซ้ำผ่าน PayPal",
     "platforms": "แพลตฟอร์ม",
-    "footer": "ทุกการมีส่วนร่วมช่วยผลักดันขอบเขตของ AI ในท้องถิ่น",
-    "suggested_title": "เลือกจำนวนเงิน",
-    "custom": "กำหนดเอง",
-    "choose_method": "เลือกวิธีการให้",
-    "choose_method_amount": "ต่อด้วย ${{amount}}",
-    "goal": {
-      "title": "สนับสนุนการพัฒนา VoiceStudio",
-      "of": "ของ",
-      "per_month": "/เดือน",
-      "aria": "{{raised}} จาก {{goal}} เป้าหมายรายเดือน",
-      "met": "🎉 บรรลุเป้าหมาย — {{raised}} เพิ่มขึ้น ขอบคุณ!",
-      "social_proof_one": "ร่วมกับผู้สนับสนุน {{count}} คนที่สนับสนุน AI ภายในเครื่อง",
-      "social_proof_other": "ร่วมกับผู้สนับสนุน {{count}} คนที่สนับสนุน AI ภายในเครื่อง"
-    }
+    "footer": "ทุกการมีส่วนร่วมช่วยผลักดันขอบเขตของ AI ในท้องถิ่น"
   },
   "support": {
     "tab_support": "สนับสนุน",
@@ -2438,20 +2423,7 @@
     "other_ways": "วิธีอื่นในการช่วยเหลือ",
     "star_github": "ติดดาวบน GitHub",
     "join_discord": "เข้าร่วมความไม่ลงรอยกัน",
-    "sponsors_title": "สปอนเซอร์",
-    "sponsors_lead": "บริษัทและบุคลากรทำให้ VoiceStudio ฟรี เป็นท้องถิ่น และเป็นโอเพ่นซอร์ส",
-    "sponsors_empty_title": "เป็นคนแรกที่จะสนับสนุน VoiceStudio",
-    "sponsors_empty_desc": "โลโก้ของคุณที่นี่",
-    "sponsors_become": "มาเป็นสปอนเซอร์",
-    "sponsors_become_aria": "ร่วมเป็นผู้สนับสนุน — เปิดปัญหา GitHub ที่กรอกไว้ล่วงหน้าในเบราว์เซอร์ของคุณ",
-    "sponsors_logo_aria": "เยี่ยมชม {{name}} ซึ่งเป็นผู้สนับสนุน VoiceStudio",
-    "sponsors_perk": "ผู้สนับสนุนจะได้รับโลโก้ของตนในแอปในREADMEและช่องบนไซต์โครงการ",
-    "sponsors_learn_more": "สิ่งที่สปอนเซอร์ได้รับ",
-    "sponsors_tier_strategic": "เชิงกลยุทธ์",
-    "sponsors_tier_company": "บริษัท",
-    "sponsors_tier_development": "การพัฒนา",
-    "sponsors_tier_community": "ชุมชน",
-    "sponsors_tier_supporter": "ผู้สนับสนุน"
+    "sponsors_tier_strategic": "เชิงกลยุทธ์"
   },
   "reportBug": {
     "native_fault_cause": "ข้อผิดพลาดในโค้ดเนทีฟ: กระบวนการล้มเหลวในชั้นที่ต่ำกว่า Python จึงไม่มีข้อมูล traceback ของ Python",
@@ -2951,14 +2923,10 @@
     "fitting": "กำลังปรับเวลา"
   },
   "supportPlans": {
-    "remove": "ลบแถบผู้สนับสนุน",
     "title": "เปรียบเทียบฟรีกับ Pro",
     "free": "ฟรี",
     "pro": "Pro",
     "get_pro": "รับ Pro",
-    "sponsor_bar": "แถบผู้สนับสนุน",
-    "visible": "แสดง",
-    "hideable": "ซ่อนได้",
     "unavailable": "ยังไม่ได้ตั้งค่าการเปิดใช้งาน Pro",
     "telemetry": "ข้อมูลการใช้งาน",
     "opt_in": "ไม่บังคับ ต้องยินยอมก่อน",

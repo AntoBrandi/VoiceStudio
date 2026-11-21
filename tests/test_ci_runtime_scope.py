@@ -19,7 +19,7 @@ spec.loader.exec_module(scope)
 
 @pytest.mark.parametrize("path", [
     "README.md", "docs/install/windows.md", "docs/readme/README_CN.md",
-    "docs/sponsors/spicrawl.svg", "changelog.d/3721.docs.md", "mobile/README.md",
+    "docs/media/electron/voicestudio.mp4", "changelog.d/3721.docs.md", "mobile/README.md",
     "tests/test_mobile_contract.py", "electron/src/main/data-relocation.test.ts",
     "electron/tests/workflow-execution-smoke.mjs", "conftest.py",
     "mobile/android/app/src/test/kotlin/ExampleTest.kt",

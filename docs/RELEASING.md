@@ -111,16 +111,8 @@ version only after validation.
 4. Fold the `changelog.d/` fragments into `## [Unreleased]` (`scripts/release.py` does this and deletes them; by hand: `uv run python scripts/changelog_fragments.py`), then rename `## [Unreleased]` in `CHANGELOG.md` to `## [X.Y.Z] — YYYY-MM-DD`.
    Open the section with its **Highlights** (3–5 bullets, the largest user-visible
    change first; the workflow puts the Download table above them),
-   include migration steps and real screenshots when relevant, and verify human
-   contributors and bug reporters from the tag comparison and included PRs. The
-   release workflow adds a `### Contributors` block to the GitHub Release notes
-   by itself: everyone who committed since the latest stable release, plus the
-   authors of PRs merged in that span (ranked by commits; bots, AI agents and
-   unlinked placeholders are never listed). A second or later beta first lists
-   who is new since the previous beta, then that full list. It does **not** find bug reporters,
-   and it skips the block when the changelog section already has a
-   `### Contributors` heading, so write one by hand when you want roles or
-   reporters credited.
+   and include migration steps and real screenshots when relevant. The GitHub
+   Release notes are this section verbatim; the workflow adds no contributor list.
    In `docs/install/issue-tracker.md`, change `Fixed on main` rows to `Fixed in release` and update the release named at the top.
 5. Run `uv run pytest tests/test_app_version.py tests/test_changelog_style.py -q`.
 6. Audit contributor agreements: `git fetch origin cla-signatures`, then

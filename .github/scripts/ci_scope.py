@@ -44,7 +44,7 @@ def non_runtime(path: str) -> bool:
         return False
     if PurePosixPath(path).suffix.lower() in {".md", ".mdx", ".rst", ".adoc"}:
         return True
-    if path.startswith(("docs/sponsors/", "docs/media/")) and PurePosixPath(path).suffix.lower() in {".svg", ".png", ".webp", ".jpg", ".jpeg", ".gif", ".mp4"}:
+    if path.startswith("docs/media/") and PurePosixPath(path).suffix.lower() in {".svg", ".png", ".webp", ".jpg", ".jpeg", ".gif", ".mp4"}:
         return True
     if any(part.lower() in {"tests", "test", "__tests__", "__snapshots__", "androidtest"} for part in parts[:-1]):
         return True

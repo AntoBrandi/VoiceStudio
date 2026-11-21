@@ -222,7 +222,7 @@ def test_test_signing_accepts_only_an_intact_signature_from_an_untrusted_root(tm
 def test_rehearsal_runs_the_same_verification_as_a_release():
     validate = step("release", "Validate all platforms before creating a release")["run"]
     assert "--assets release-assets --rehearsal --missing-report" in validate
-    assert '--assets release-assets --tag "$TAG" --repo' in validate
+    assert '--assets release-assets --tag "$TAG"' in validate and "--repo" not in validate
     sunset = step("release", "Preserve the final Tauri updater feeds")
     assert "rehearsal" not in sunset.get("if", "")
     assert "--rehearsal --missing-report" in sunset["run"] and '--sunset-tag "$SUNSET_TAG"' in sunset["run"]
@@ -263,27 +263,11 @@ def release_module(monkeypatch):
     return module
 
 
-def test_prepare_rehearsal_verifies_as_the_package_version_and_credits_up_to_head(release_module, monkeypatch, tmp_path):
+def test_prepare_rehearsal_verifies_as_the_package_version(release_module, monkeypatch, tmp_path):
     monkeypatch.chdir(tmp_path)
-    subprocess.run(["git", "init", "-q"], check=True)
     Path("package.json").write_text(json.dumps({"version": "1.2.3-beta.2"}), encoding="utf-8")
-    subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@example.invalid", "commit", "-q",
-                    "--allow-empty", "-m", "x"], check=True)
-    head = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True).stdout.strip()
-    assert release_module.rehearsal_target() == ("v1.2.3-beta.2", head)
-
-    compared = []
-    def gh(*args):
-        if args[0] == "pr":
-            return ""
-        if args[1].endswith("/releases/latest"):
-            return "v1.2.2 2026-10-01T00:00:00Z\n"
-        if args[1].endswith("/releases"):
-            return ""
-        compared.append(args[1])
-        return "alice\n"
-    block = release_module.contributors_section("o/r", "v1.2.3-beta.2", gh, head=head)
-    assert compared == [f"repos/o/r/compare/v1.2.2...{head}"] and "@alice" in block
+    assert release_module.rehearsal_target() == "v1.2.3-beta.2"
+    assert not hasattr(release_module, "contributors_section")  # release notes carry no credits block
 
 
 def test_a_rehearsal_with_failed_legs_still_verifies_the_rest_and_then_fails():

@@ -41,13 +41,13 @@ contributor portraits. Tap either core maintainer to open a native profile sheet
 with their role, website, GitHub and X links. Portraits, brand icons and profile
 metadata are bundled for offline use; external pages open only when tapped.
 Contributor portraits use the public GitHub profile images refreshed on
-2026-10-26. The contributor export also keeps iOS portraits identical to
-Electron and Android.
+2026-10-26; iOS and Android list the same people. The desktop app no longer
+shows contributors.
 
 Settings → **Support** contains native **Donate**, **VoiceStudio Pro** and
 **Other Apps** pages on both phones. All copy and project logos are bundled for
-offline use. Donate offers the same GitHub Sponsors, Ko-fi and PayPal destinations
-as desktop, opened only by a tap; gifts do not unlock features. Pro explains the
+offline use. Donate offers GitHub Sponsors, Ko-fi and PayPal destinations (the desktop app
+has no donation page), opened only by a tap; gifts do not unlock features. Pro explains the
 computer production tools while the phone's creative tools stay free. It does
 not sell or activate mobile features. Other Apps introduces OpenGTM, Opal,
 Supermetry and Spicrawl with explicit sponsor credits and individual links.

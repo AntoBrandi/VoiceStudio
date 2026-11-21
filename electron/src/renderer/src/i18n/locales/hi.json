@@ -144,8 +144,6 @@
     "maintainerShimul": "Shimul Debnath",
     "follow": "फ़ॉलो करें",
     "website": "वेबसाइट",
-    "hideUntilUpdate": "अगले अपडेट तक छिपाएँ",
-    "hideThanks": "हमारे योगदानकर्ताओं से मिलने के लिए धन्यवाद! यह अगले अपडेट के साथ वापस आएगा।",
     "hoHoHo": "हो हो हो!"
   },
   "twilioIntegration": {
@@ -2416,20 +2414,7 @@
     "coffee_desc": "टीम के लिए कॉफ़ी खरीदें. किसी खाते की आवश्यकता नहीं.",
     "paypal_desc": "पेपैल के माध्यम से त्वरित एक बार या आवर्ती।",
     "platforms": "प्लेटफार्म",
-    "footer": "प्रत्येक योगदान स्थानीय एआई की सीमाओं को आगे बढ़ाने में मदद करता है।",
-    "suggested_title": "एक राशि चुनें",
-    "custom": "कस्टम",
-    "choose_method": "चुनें कि कैसे देना है",
-    "choose_method_amount": "${{amount}} के साथ जारी रखें",
-    "goal": {
-      "title": "VoiceStudio के विकास में सहयोग करें",
-      "of": "का",
-      "per_month": "/ महीना",
-      "aria": "{{raised}} का {{goal}} मासिक लक्ष्य",
-      "met": "🎉लक्ष्य पूरा हुआ - {{raised}} बढ़ा। धन्यवाद!",
-      "social_proof_one": "स्थानीय AI को समर्थन देने वाले {{count}} समर्थक से जुड़ें",
-      "social_proof_other": "स्थानीय AI को समर्थन देने वाले {{count}} समर्थकों से जुड़ें"
-    }
+    "footer": "प्रत्येक योगदान स्थानीय एआई की सीमाओं को आगे बढ़ाने में मदद करता है।"
   },
   "support": {
     "tab_support": "समर्थन",
@@ -2438,20 +2423,7 @@
     "other_ways": "मदद करने के अन्य तरीके",
     "star_github": "GitHub पर स्टार लगाएं",
     "join_discord": "कलह में शामिल हों",
-    "sponsors_empty_title": "VoiceStudio को प्रायोजित करने वाले पहले व्यक्ति बनें",
-    "sponsors_empty_desc": "आपका लोगो यहाँ",
-    "sponsors_become_aria": "प्रायोजक बनें - आपके ब्राउज़र में पहले से भरा हुआ GitHub अंक खोलता है",
-    "sponsors_perk": "प्रायोजकों को ऐप में अपना लोगो, README और प्रोजेक्ट साइट पर एक स्लॉट मिलता है।",
-    "sponsors_learn_more": "प्रायोजकों को क्या मिलता है",
-    "sponsors_logo_aria": "{{name}}, एक VoiceStudio प्रायोजक पर जाएँ",
-    "sponsors_tier_strategic": "रणनीतिक",
-    "sponsors_tier_company": "कंपनी",
-    "sponsors_tier_development": "विकास",
-    "sponsors_tier_community": "समुदाय",
-    "sponsors_tier_supporter": "समर्थक",
-    "sponsors_title": "प्रायोजक",
-    "sponsors_lead": "कंपनियाँ और लोग VoiceStudio को मुफ़्त, स्थानीय और खुला स्रोत रखते हैं।",
-    "sponsors_become": "प्रायोजक बनें"
+    "sponsors_tier_strategic": "रणनीतिक"
   },
   "reportBug": {
     "native_fault_cause": "नेटिव त्रुटि: प्रक्रिया Python से निचले स्तर पर विफल हुई, इसलिए Python ट्रेसबैक उपलब्ध नहीं है।",
@@ -2951,14 +2923,10 @@
     "fitting": "समय समायोजित हो रहा है"
   },
   "supportPlans": {
-    "remove": "प्रायोजक बार हटाएँ",
     "title": "मुफ़्त बनाम Pro",
     "free": "मुफ़्त",
     "pro": "Pro",
     "get_pro": "Pro लें",
-    "sponsor_bar": "प्रायोजक बार",
-    "visible": "दिखाई देता है",
-    "hideable": "छिपाया जा सकता है",
     "unavailable": "Pro सक्रियण अभी कॉन्फ़िगर नहीं किया गया है।",
     "telemetry": "टेलीमेट्री",
     "opt_in": "वैकल्पिक, सहमति पर",

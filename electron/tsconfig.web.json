@@ -37,7 +37,6 @@
     "src/shared/utils/indexedDbLongformStore.ts",
     "src/shared/utils/cookieExport.ts",
     "src/shared/api/types.ts",
-    "src/shared/api/donation.ts",
     "src/shared/api/authSession.ts",
     "src/shared/utils/runCrashRecord.ts",
     "src/shared/utils/backendOutput.ts",

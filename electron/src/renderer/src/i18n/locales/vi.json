@@ -144,8 +144,6 @@
     "maintainerShimul": "Shimul Debnath",
     "follow": "Theo dõi",
     "website": "Trang web",
-    "hideUntilUpdate": "Ẩn đến bản cập nhật tiếp theo",
-    "hideThanks": "Cảm ơn bạn đã ghé thăm những người đóng góp! Phần này sẽ trở lại ở bản cập nhật tiếp theo.",
     "hoHoHo": "Hô hô hô!"
   },
   "twilioIntegration": {
@@ -2416,20 +2414,7 @@
     "coffee_desc": "Mua cho đội một ly cà phê. Không cần tài khoản.",
     "paypal_desc": "Nhanh chóng một lần hoặc định kỳ qua PayPal.",
     "platforms": "Nền tảng",
-    "footer": "Mọi đóng góp đều giúp mở rộng ranh giới của AI địa phương.",
-    "suggested_title": "Chọn một số tiền",
-    "custom": "tùy chỉnh",
-    "choose_method": "Chọn cách cho đi",
-    "choose_method_amount": "Tiếp tục với ${{amount}}",
-    "goal": {
-      "title": "Hỗ trợ phát triển VoiceStudio",
-      "of": "của",
-      "per_month": "/ tháng",
-      "aria": "{{raised}} trong số {{goal}} mục tiêu hàng tháng",
-      "met": "🎉 Đã đạt mục tiêu — {{raised}} tăng lên. Cảm ơn!",
-      "social_proof_one": "Tham gia cùng {{count}} người ủng hộ AI cục bộ",
-      "social_proof_other": "Tham gia cùng {{count}} người ủng hộ AI cục bộ"
-    }
+    "footer": "Mọi đóng góp đều giúp mở rộng ranh giới của AI địa phương."
   },
   "support": {
     "tab_support": "Hỗ trợ",
@@ -2438,20 +2423,7 @@
     "other_ways": "Những cách khác để giúp đỡ",
     "star_github": "Sao trên GitHub",
     "join_discord": "Tham gia bất hòa",
-    "sponsors_title": "Nhà tài trợ",
-    "sponsors_lead": "Các công ty và những người giữ VoiceStudio là nguồn mở, cục bộ và miễn phí.",
-    "sponsors_empty_title": "Hãy là người đầu tiên tài trợ cho VoiceStudio",
-    "sponsors_empty_desc": "Logo của bạn ở đây",
-    "sponsors_become": "Trở thành nhà tài trợ",
-    "sponsors_become_aria": "Trở thành nhà tài trợ — mở sự cố GitHub được điền sẵn trong trình duyệt của bạn",
-    "sponsors_perk": "Các nhà tài trợ có biểu tượng của họ trong ứng dụng, trong README và một vị trí trên trang web dự án.",
-    "sponsors_learn_more": "Nhà tài trợ nhận được gì",
-    "sponsors_logo_aria": "Hãy ghé thăm {{name}}, nhà tài trợ VoiceStudio",
-    "sponsors_tier_strategic": "Chiến lược",
-    "sponsors_tier_company": "Doanh nghiệp",
-    "sponsors_tier_development": "Phát triển",
-    "sponsors_tier_community": "Cộng đồng",
-    "sponsors_tier_supporter": "Người ủng hộ"
+    "sponsors_tier_strategic": "Chiến lược"
   },
   "reportBug": {
     "native_fault_cause": "Lỗi mã gốc: tiến trình gặp lỗi ở tầng bên dưới Python nên không có thông tin truy vết Python.",
@@ -2951,14 +2923,10 @@
     "fitting": "Đang điều chỉnh thời gian"
   },
   "supportPlans": {
-    "remove": "Xóa thanh nhà tài trợ",
     "title": "Miễn phí và Pro",
     "free": "Miễn phí",
     "pro": "Pro",
     "get_pro": "Nhận Pro",
-    "sponsor_bar": "Thanh nhà tài trợ",
-    "visible": "Hiển thị",
-    "hideable": "Có thể ẩn",
     "unavailable": "Chưa cấu hình kích hoạt Pro.",
     "telemetry": "Dữ liệu sử dụng",
     "opt_in": "Tùy chọn, cần đồng ý",

@@ -3,9 +3,8 @@
 Renames (OmniVoice -> VoiceStudio, moved guides, reworded headings) silently
 break in-repo links; this keeps every relative link and anchor resolvable.
 
-The scan covers the repository-root pages too (#2903). ``CHANGELOG.md`` and
-``SPONSORS.md`` sat outside it, so links there kept pointing at files a later
-release deleted while the covered pages stayed clean. A released changelog
+The scan covers the repository-root pages too (#2903). ``CHANGELOG.md`` sat
+outside it, so links there kept pointing at files a later release deleted while the covered pages stayed clean. A released changelog
 entry is a historical record and is never repointed at a different file that
 happens to exist today — name the removed path as inline code instead.
 """
@@ -21,7 +20,6 @@ _DOCS = sorted(
         *(_ROOT / ".github").glob("*.md"),
         _ROOT / "README.md",
         _ROOT / "CHANGELOG.md",
-        _ROOT / "SPONSORS.md",
     }
 )
 _LINK = re.compile(r"(?<!!)\[[^\]]*\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)")
@@ -71,7 +69,7 @@ def test_scan_covers_the_repo_root_pages():
     which is how the #2903 links survived the sweep that fixed the rest.
     """
     covered = {doc.relative_to(_ROOT).as_posix() for doc in _DOCS}
-    for page in ("README.md", "CHANGELOG.md", "SPONSORS.md"):
+    for page in ("README.md", "CHANGELOG.md"):
         assert page in covered, f"{page} is not scanned for broken links"
 
 
