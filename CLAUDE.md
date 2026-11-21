@@ -92,7 +92,7 @@ runtime/config/dependency changes still run CI, as do bundled app assets and
 licence/catalog data. CLA, identity and secret checks remain enabled.
 
 Other conventions not yet established. Will populate as patterns emerge during development.
-**Attribution and identity (hard rule, owner-set 2026-10-02):** commits, PR descriptions, and issue/PR comments carry only the submitter's own git identity. AI agents are never credited: no agent `Co-authored-by:` trailer, no "Generated with …" line, no session links, no agent author/committer. Never put names or emails other than the configured git identity into commits or comments (no personal emails, no placeholder identities). Human co-authors are fine. Enforced on PRs by `scripts/check_commit_identities.py` (the `commit-identity` check).
+**Identity (fork rule, 2026-11-21):** AI attribution is allowed in commits, PR descriptions and comments (agent `Co-authored-by:` trailers, "Generated with …" lines). Don't put personal emails or placeholder identities into commits; `scripts/check_commit_identities.py` (the `commit-identity` check) blocks those only.
 
 <!-- GSD:conventions-end -->
 

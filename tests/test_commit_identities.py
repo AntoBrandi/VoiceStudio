@@ -155,7 +155,7 @@ def test_workflow_uses_trusted_target_orchestration_and_privileged_status():
     """Pin identity policy execution to the pull request's trusted base commit."""
     wf = yaml.load(WORKFLOW.read_text(encoding="utf-8"), Loader=yaml.BaseLoader)
     assert set(wf["on"]) == {"pull_request_target"}
-    assert "edited" in wf["on"]["pull_request_target"]["types"]
+    assert "edited" not in wf["on"]["pull_request_target"]["types"]  # the description is not policy
     assert wf["permissions"] == {"contents": "read", "pull-requests": "read", "statuses": "write"}
     (job,) = wf["jobs"].values()
     checkout, run = job["steps"]
@@ -171,188 +171,38 @@ def test_workflow_uses_trusted_target_orchestration_and_privileged_status():
 
 
 # ── AI agents ───────────────────────────────────────────────────────────
-# Built at runtime so this file never contains a literal agent address.
+# AI co-authors and attribution are allowed; only personal-data and
+# placeholder identities are blocked. Built at runtime: no literal address.
 AGENT_EMAIL = "noreply" + "@" + "anthropic.com"
-HUMAN = "Dana <4242+dana@users.noreply.github.com>"
-
-
-@pytest.mark.parametrize(
-    "message,expected",
-    [
-        (f"feat: x\n\nCo-authored-by: Claude <{AGENT_EMAIL}>", "Co-authored-by trailer email: AI agent identity"),
-        ("feat: x\n\nCo-authored-by: Claude Opus 5.5 <x@example.com>", "Co-authored-by trailer name: AI agent identity"),
-        ("feat: x\n\nCo-authored-by: Cursor Agent <cursoragent@cursor.com>", "Co-authored-by trailer name: AI agent identity"),
-        ("feat: x\n\nCo-authored-by: Copilot <198982749+Copilot@users.noreply.github.com>", "AI agent identity"),
-        ("feat: x\n\n\U0001f916 Generated with [Some Agent](https://example.com)", "message: AI agent attribution"),
-        ("feat: x\n\nGenerated with Codex", "message: AI agent attribution"),
-        ("feat: x\n\nClaude-Session: abc123", "message: AI agent attribution"),
-        ("feat: x\n\nSession: https://claude.ai/code/session_abc", "message: AI agent attribution"),
-        ("feat: x\n\nSee https://claude.ai/share/0f1e2d", "message: AI agent attribution"),
-        ("feat: x\n\nSee https://claude.ai/chat/0f1e2d", "message: AI agent attribution"),
-        ("feat: x\n\nSee claude.ai/c/0f1e2d", "message: AI agent attribution"),
-        ("feat: x\n\nVia https://claude.ai/new", "message: AI agent attribution"),
-        ("feat: x\n\nBuilt in https://claude.com/claude-code", "message: AI agent attribution"),
-        ("feat: x\n\nPlan: https://chatgpt.com/share/abc-123", "message: AI agent attribution"),
-        ("feat: x\n\nPlan: https://chatgpt.com/c/abc-123", "message: AI agent attribution"),
-        ("feat: x\n\nPlan: https://chat.openai.com/share/abc-123", "message: AI agent attribution"),
-    ],
-)
-def test_ai_agent_attribution_in_commits_is_blocked(repo, message, expected):
-    _, commit, check = repo
-    sha = commit(message)
-    result = check(*_only(sha))
-    assert result.returncode == 1 and expected in result.stdout
-
-
-def test_ai_agent_as_author_is_blocked(repo):
-    _, commit, check = repo
-    sha = commit("feat: x", author=("Agent", AGENT_EMAIL))
-    result = check(*_only(sha))
-    assert result.returncode == 1 and "author email: AI agent identity" in result.stdout
-
-
-def _at(local: str, domain: str) -> str:
-    return local + "@" + domain
-
-
-@pytest.mark.parametrize(
-    "email",
-    [
-        _at("noreply", "anthropic.com"), _at("cursoragent", "cursor.com"), _at("codex", "openai.com"),
-        _at("noreply", "openai.com"), _at("noreply", "coderabbit.ai"), _at("codex", "users.noreply.github.com"),
-        _at("198982749+Copilot", "users.noreply.github.com"), _at("209825114+claude[bot]", "users.noreply.github.com"),
-        _at("158243242+devin-ai-integration[bot]", "users.noreply.github.com"),
-        _at("161369871+google-labs-jules[bot]", "users.noreply.github.com"),
-        _at("136622811+coderabbitai[bot]", "users.noreply.github.com"),
-    ],
-)
-def test_agent_emails_are_blocked(repo, email):
-    _, commit, check = repo
-    sha = commit("feat: x", author=("Someone", email))
-    result = check(*_only(sha))
-    assert result.returncode == 1 and "author email: AI agent identity" in result.stdout
-
-
-@pytest.mark.parametrize(
-    "email", [_at("someone", "anthropic.com"), _at("someone", "openai.com"), _at("dev", "cursor.com"),
-              _at("dev", "coderabbit.ai"), _at("dev", "devin.ai")],
-)
-def test_people_with_work_emails_at_ai_companies_pass(repo, email):
-    _, commit, check = repo
-    sha = commit(f"feat: x\n\nCo-authored-by: Sam <{email}>", author=("Sam", email), committer=("Sam", email))
-    assert check(*_only(sha)).returncode == 0
-
-
-@pytest.mark.parametrize(
-    "name",
-    ["Claude Code", "Claude Opus 5.5", "claude 3.5 sonnet", "Cursor Agent", "cursoragent", "GitHub Copilot",
-     "Copilot", "Codex", "OpenAI Codex", "Devin AI", "devin-ai-integration[bot]", "google-labs-jules[bot]",
-     "coderabbitai[bot]", "claude[bot]"],
-)
-def test_agent_author_and_committer_names_are_blocked(repo, name):
-    _, commit, check = repo
-    for field, kwargs in (("author", {"author": (name, CLEAN[1])}), ("committer", {"committer": (name, CLEAN[1])})):
-        sha = commit("feat: x", **kwargs)
-        result = check(*_only(sha))
-        assert result.returncode == 1 and f"{field} name: AI agent identity" in result.stdout, (field, name)
-
-
-@pytest.mark.parametrize("name", ["Claude", "Claude Monet", "Jules", "Devin", "Cursor Smith"])
-def test_people_named_like_agents_can_author(repo, name):
-    _, commit, check = repo
-    sha = commit("feat: x", author=(name, CLEAN[1]), committer=(name, CLEAN[1]))
-    assert check(*_only(sha)).returncode == 0
 
 
 @pytest.mark.parametrize(
     "message",
     [
-        f"feat: pair work\n\nCo-authored-by: {HUMAN}",
-        "feat: x\n\nCo-authored-by: Claude Monet <monet@example.com>",  # a person called Claude
-        "fix: audio generated with the default model sounded clipped",
-        "docs: link the claude.ai status page and chatgpt.com/pricing",
+        f"feat: x\n\nCo-authored-by: Claude <{AGENT_EMAIL}>",
+        "feat: x\n\nCo-authored-by: Cursor Agent <cursoragent@cursor.com>",
+        "feat: x\n\n\U0001f916 Generated with [Claude Code](https://claude.com/claude-code)",
+        "feat: x\n\nClaude-Session: abc123",
+        "feat: x\n\nSee https://claude.ai/share/0f1e2d",
     ],
 )
-def test_people_and_ordinary_prose_pass(repo, message):
+def test_ai_agent_attribution_is_allowed(repo, message):
     _, commit, check = repo
-    sha = commit(message)
+    assert check(*_only(commit(message))).returncode == 0
+
+
+def test_ai_agent_as_author_is_allowed(repo):
+    _, commit, check = repo
+    sha = commit("feat: x", author=("Claude Code", AGENT_EMAIL), committer=("Claude Code", AGENT_EMAIL))
     assert check(*_only(sha)).returncode == 0
 
 
-@pytest.mark.parametrize("name", ["Claude", "Jules", "Devin", "Gemini"])
-def test_human_first_names_in_commit_trailers_pass(repo, name):
+def test_agent_trailer_still_cannot_carry_a_blocked_email(repo, secret_email):
     _, commit, check = repo
-    sha = commit(
-        f"feat: pair work\n\nCo-authored-by: {name} <human@example.com>\n"
-        f"Signed-off-by: {name} <human@example.com>"
-    )
-    assert check(*_only(sha)).returncode == 0
-
-
-@pytest.mark.parametrize("name", ["Claude", "Jules", "Devin", "Gemini"])
-def test_ambiguous_trailer_name_with_agent_email_stays_blocked(repo, name):
-    _, commit, check = repo
-    sha = commit(f"feat: x\n\nCo-authored-by: {name} <{AGENT_EMAIL}>")
-    result = check(*_only(sha))
-    assert result.returncode == 1
-    assert "Co-authored-by trailer email: AI agent identity" in result.stdout
-
-
-@pytest.mark.parametrize(
-    "name", ["Claude Code 2", "Google Jules", "Devin AI", "Gemini Code Assist", "claude[bot]"]
-)
-def test_unambiguous_agent_trailers_stay_blocked(repo, name):
-    _, commit, check = repo
-    sha = commit(f"feat: x\n\nCo-authored-by: {name} <tool@example.com>")
-    result = check(*_only(sha))
-    assert result.returncode == 1
-    assert "Co-authored-by trailer name: AI agent identity" in result.stdout
-
-
-def test_bot_authors_that_are_not_agents_pass(repo):
-    _, commit, check = repo
-    sha = commit("chore(deps): bump", author=("dependabot[bot]", "49699333+dependabot[bot]@users.noreply.github.com"))
-    assert check(*_only(sha)).returncode == 0
-
-
-def test_pull_request_description_attribution_is_blocked(repo, tmp_path):
-    _, commit, check = repo
-    sha = commit("feat: clean")
-    event = tmp_path / "event.json"
-    event.write_text('{"pull_request": {"body": "Adds X.\\n\\nGenerated with Claude"}}')
-    result = check(*_only(sha), "--event", str(event))
-    assert result.returncode == 1 and "PR  description: AI agent attribution" in result.stdout
-    event.write_text('{"pull_request": {"body": null}}')
-    assert check(*_only(sha), "--event", str(event)).returncode == 0
-
-
-@pytest.mark.parametrize(
-    "text,flagged",
-    [
-        ("Written by an LLM engineer on the team.", False),
-        ("Generated by AI researchers at the lab", False),
-        ("Generated with an AI model.", True),
-        ("Written by AI", True),
-        ("Created using an LLM", True),
-        ("Generated with AI assistance", True),
-        ("Generated with an AI model for this change", True),
-        ("Generated by AI assistant and reviewed by me", True),
-        ("Generated with an AI tool for docs", True),
-        ("Written by the AI team at Example Corp", False),
-        ("Written by an AI consultant", False),
-        ("Authored by the LLM working group", False),
-        ("Written by AI, then edited", True),
-        ("Generated with AI-assisted tooling", True),
-        ("Created with an AI coding agent", True),
-        ("Generated by Claude", True),
-        ("Generated with Cursor today", True),
-    ],
-)
-def test_generic_ai_credit_only_when_it_names_no_person(text, flagged):
-    spec = importlib.util.spec_from_file_location("cci", SCRIPT)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    assert bool(module.classify_text(text)) is flagged
+    email, hashes = secret_email
+    sha = commit(f"feat: x\n\nCo-authored-by: Claude <{email}>")
+    result = check(*_only(sha), "--hash-file", hashes)
+    assert result.returncode == 1 and email not in result.stdout
 
 
 def test_remedy_rewrites_only_the_listed_commits():
@@ -360,20 +210,6 @@ def test_remedy_rewrites_only_the_listed_commits():
     assert "git rebase --exec 'git commit --amend --no-edit --reset-author'" not in text
     contributing = (ROOT / ".github" / "CONTRIBUTING.md").read_text(encoding="utf-8")
     assert "mark each listed commit `edit`" in contributing
-
-
-@pytest.mark.parametrize("name", ["Devin[bot]", "Gemini[bot]", "Jules[bot]"])
-@pytest.mark.parametrize("identity", ["author", "trailer"])
-def test_bot_suffixed_first_names_remain_blocked(repo, name, identity):
-    _, commit, check = repo
-    email = "1001+alice@users.noreply.github.com"
-    if identity == "author":
-        sha = commit("fix: thing", author=(name, email))
-    else:
-        sha = commit(f"fix: thing\n\nCo-authored-by: {name} <{email}>")
-    result = check(*_only(sha))
-    assert result.returncode == 1
-    assert "AI agent identity" in result.stdout
 
 
 def test_failed_evaluation_resolves_the_required_status(

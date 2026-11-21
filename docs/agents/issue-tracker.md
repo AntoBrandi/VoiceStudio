@@ -51,10 +51,6 @@ These come from `CLAUDE.md` and apply to anything a skill opens or merges here:
   merge-then-fix and don't leave them as comments for someone else.
 - **Gate every merge** on the "Tests (backend + frontend)" check passing and the PR
   being `MERGEABLE`.
-- **Always pass an explicit `--body` to `gh pr merge --squash`.** Letting it
-  auto-generate copies every commit message, including any agent
-  `Co-authored-by:` or "Generated with" lines, which this repo forbids (see
-  the attribution rule in `CLAUDE.md`).
 - **Check the open-PR queue** before implementing any community-reported fix — a
   contributor may already have submitted one.
 

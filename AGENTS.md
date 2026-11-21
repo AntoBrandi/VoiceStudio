@@ -68,7 +68,7 @@ licence/catalog data. CLA, identity and secret checks remain enabled.
 - Tagged release announcements lead with the biggest user-visible change; redesigns need real UI screenshots and migrations need installer links and steps. Verify all contributor credits from the tag comparison and included PRs; list authors and bug reporters separately (see `docs/RELEASING.md`).
 - Versioning: root `package.json` is the single source of truth; never bump without the owner asking.
 - JavaScript dependency changes require regenerating root `bun.lock` (Docker runs `--frozen-lockfile`).
-- Attribution: commits, PR descriptions and comments carry only the submitter's git identity. Never credit an agent (no agent `Co-authored-by:`, "Generated with …", session links) and never add other names/emails. Human co-authors are fine. Enforced by the `commit-identity` check.
+- Identity: AI attribution is allowed in commits, PR descriptions and comments. Don't add personal emails or placeholder identities; the `commit-identity` check blocks those only.
 - Issues: absorb or decline — never defer to a future version. Check the open-PR queue before implementing community-reported fixes.
 
 ### Diagnostic app intake (owner task, 2026-11-15)

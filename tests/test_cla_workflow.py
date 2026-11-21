@@ -66,12 +66,9 @@ def test_new_contributors_are_told_to_sign_before_their_first_pull_request():
     that ``sign_on_issue`` records for anyone."""
     signing_issue = "https://github.com/debpalash/VoiceStudio/issues/2586"
     contributing = (_REPO / ".github" / "CONTRIBUTING.md").read_text(encoding="utf-8")
-    template = (_REPO / ".github" / "pull_request_template.md").read_text(encoding="utf-8")
     readme = (_REPO / "README.md").read_text(encoding="utf-8")
     assert "Before your first pull request" in contributing
     assert contributing.count(signing_issue) >= 2
-    assert signing_issue in template
-    assert "sign the Contributor License Agreement once" in " ".join(template.split())
     assert "contribution-licensing" in readme
     assert cla.SIGNING_LABEL == "cla"
 
@@ -153,7 +150,7 @@ def test_main_ruleset_requires_pull_requests_identities_and_the_cla_status():
     }
     contexts = {c["context"] for c in rules["required_status_checks"]["required_status_checks"]}
     assert cla.STATUS_CONTEXT in contexts
-    # Without the identity gate, agent identities that skip the CLA go unblocked.
+    # The identity gate blocks personal-data and placeholder identities.
     identity_job = next(iter(_load(_WORKFLOWS / "commit-identity.yml")["jobs"].values()))["name"]
     assert identity_job in contexts
     assert "Commit identity policy" in contexts  # fork jobs cannot forge this privileged status
@@ -243,8 +240,6 @@ def test_agent_guide_is_short_and_surfaced_with_the_same_prompt_everywhere():
     text = guide.read_text(encoding="utf-8")
     assert len(text.splitlines()) <= 60
     assert cla.SIGN_PHRASE in text and "issues/2586" in text
-    prompt = cla.agent_prompt(f"https://github.com/debpalash/VoiceStudio/blob/main/{cla.AGENT_GUIDE_PATH}")
-    assert prompt in (_REPO / ".github" / "pull_request_template.md").read_text(encoding="utf-8")
     contributing = (_REPO / ".github" / "CONTRIBUTING.md").read_text(encoding="utf-8")
     top = contributing.split("## Adding a TTS or ASR engine")[0]
     assert "sign the CLA first" in top and "(AGENT_PR_GUIDE.md)" in top

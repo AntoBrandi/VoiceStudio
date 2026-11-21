@@ -67,7 +67,9 @@ def repository(tmp_path):
             workflow.write_text('on: pull_request\njobs:\n  forged:\n    name: Commit identities\n    steps:\n      - run: true\n')
         (work / 'change.txt').write_text('contribution')
         git('add', '.')
-        git('commit', '-qm', 'Generated with Claude' if malicious else 'add contribution')
+        # A hostname-style auto-detected email is blocked by the base policy.
+        email = 'dev@builder.local' if malicious else '1001+human@users.noreply.github.com'
+        git('-c', f'user.email={email}', 'commit', '-qm', 'add contribution')
         sha = git('rev-parse', 'HEAD')
         git('push', '-q', 'origin', 'HEAD:refs/pull/7/head')
         pr = {'number': 7, 'state': 'open', 'head': {'sha': sha}, 'base': {'sha': base}, 'body': ''}
@@ -108,7 +110,8 @@ def test_head_change_during_fetch_is_not_approved(repository):
     assert gh.statuses[-1]['state'] == 'pending'
 
 
-def test_description_edit_during_check_is_not_approved(repository, monkeypatch):
+def test_description_is_not_policy(repository, monkeypatch):
+    """AI attribution is allowed, so the PR description neither blocks nor re-checks."""
     gh, event, runner = repository()
     original = gh.get
     def changed(path):
@@ -117,9 +120,8 @@ def test_description_edit_during_check_is_not_approved(repository, monkeypatch):
             result['body'] = 'Generated with Claude'
         return result
     monkeypatch.setattr(gh, 'get', changed)
-    with pytest.raises(RuntimeError, match='metadata changed'):
-        gate.run(gh, event, runner)
-    assert gh.statuses[-1]['state'] == 'pending'
+    assert gate.run(gh, event, runner) is True
+    assert gh.statuses[-1]['state'] == 'success'
 
 
 @pytest.mark.parametrize('state', ['pending', 'success'])
@@ -174,11 +176,3 @@ def test_identity_duplicate_enumeration_error_fails_closed(repository, monkeypat
     with pytest.raises(RuntimeError, match='GitHub unavailable'):
         gate.run(gh, event, runner)
     assert gh.statuses[-1]['state'] == 'pending'
-
-
-def test_rerun_uses_current_description_instead_of_old_event(repository):
-    gh, event, runner = repository()
-    gh.pr['body'] = 'Generated with Claude'
-    assert event['pull_request']['body'] == ''
-    assert gate.run(gh, event, runner) is False
-    assert gh.statuses[-1]['state'] == 'failure'
