@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { isAllowedRequest, STAR_COUNT_URL } from './local-first.mjs';
+import { isAllowedRequest } from './local-first.mjs';
 
 const allowed = [
   'app://-/index.html',
@@ -15,7 +15,7 @@ const allowed = [
   'ws://localhost:3900/ws/events',
 ];
 const rejected = [
-  STAR_COUNT_URL,
+  'https://api.github.com/repos/debpalash/VoiceStudio',
   'https://app.supermetry.com/api/public/v1/events',
   'https://huggingface.co/',
   'http://127.0.0.1.evil.com/',

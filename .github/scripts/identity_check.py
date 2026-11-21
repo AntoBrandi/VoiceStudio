@@ -13,7 +13,6 @@ from pathlib import Path
 import re
 import subprocess
 import sys
-import tempfile
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from cla_check import GitHub, head_blockers, set_status
@@ -23,7 +22,7 @@ STATUS_CONTEXT = "Commit identity policy"
 
 
 def _snapshot(pr: dict) -> tuple:
-    return (pr.get("state"), pr["head"]["sha"], pr["base"]["sha"], pr.get("body") or "")
+    return (pr.get("state"), pr["head"]["sha"], pr["base"]["sha"])
 
 
 def run(gh: GitHub, event: dict, root: Path = ROOT) -> bool:
@@ -56,14 +55,11 @@ def run(gh: GitHub, event: dict, root: Path = ROOT) -> bool:
     fetched = subprocess.check_output(["git", "rev-parse", "FETCH_HEAD"], cwd=root, env=environment, text=True).strip()
     if fetched != sha:
         raise RuntimeError("PR head changed during fetch; recheck")
-    with tempfile.TemporaryDirectory(prefix="identity-event-") as directory:
-        metadata = Path(directory) / "event.json"
-        metadata.write_text(json.dumps({"pull_request": {"body": pr.get("body")}}), encoding="utf-8")
-        result = subprocess.run([
-            sys.executable, str(root / "scripts/check_commit_identities.py"),
-            "--hash-file", str(root / "scripts/blocked_identity_hashes.txt"),
-            "--range", f"{base}..{sha}", "--event", str(metadata),
-        ], cwd=root, env=environment)
+    result = subprocess.run([
+        sys.executable, str(root / "scripts/check_commit_identities.py"),
+        "--hash-file", str(root / "scripts/blocked_identity_hashes.txt"),
+        "--range", f"{base}..{sha}",
+    ], cwd=root, env=environment)
     if result.returncode not in (0, 1):
         raise RuntimeError("Commit identity policy could not be evaluated")
     if _snapshot(gh.get(f"/repos/{gh.repo}/pulls/{number}")) != _snapshot(pr):
@@ -72,7 +68,7 @@ def run(gh: GitHub, event: dict, root: Path = ROOT) -> bool:
     passed = result.returncode == 0 and not duplicates
     set_status(gh, sha, "success" if passed else "failure",
                ("Close duplicate PR heads and rerun the survivor's identity check" if duplicates else
-                "Commit identities are clean" if passed else "Blocked commit identities or agent attribution"),
+                "Commit identities are clean" if passed else "Blocked commit identities"),
                context=STATUS_CONTEXT)
     return passed
 

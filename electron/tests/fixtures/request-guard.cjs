@@ -6,7 +6,7 @@
 // the test process fails the run on anything recorded that is not allowed.
 const diagnostics = require('node:diagnostics_channel');
 const { app, ipcMain, session } = require('electron');
-const { STAR_COUNT_URL, isAllowedRequest } = require('../local-first.cjs');
+const { isAllowedRequest } = require('../local-first.cjs');
 
 const log = (globalThis.__requestLog = []);
 const record = (build) => {
@@ -34,13 +34,6 @@ ipcMain.handle = (channel, listener) =>
 
 app.whenReady().then(() => {
   session.defaultSession.webRequest.onBeforeRequest((details, callback) => {
-    // The renderer's star badge is answered by a Playwright route before it can reach the
-    // network (even if a reload aborts it first), so it is neither a leak nor worth counting.
-    // The same URL from the main process has no stub, so it is judged like any other request.
-    if (details.url === STAR_COUNT_URL && details.webContentsId) {
-      callback({});
-      return;
-    }
     log.push(details.url);
     callback({ cancel: !isAllowedRequest(details.url) });
   });

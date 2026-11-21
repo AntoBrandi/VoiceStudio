@@ -38,16 +38,12 @@ source in [CONTRIBUTING.md](CONTRIBUTING.md) or [CLAUDE.md](../CLAUDE.md).
 9. **Add a changelog fragment** for user-visible changes:
    `changelog.d/<PR#>.<type>.md`, one line ending with `(#<PR#>)`. Don't edit
    `CHANGELOG.md`. ([changelog.d](../changelog.d/README.md))
-10. **Commit under the contributor's own identity only.** No AI
-    `Co-authored-by:` trailers, no "Generated with" lines, no agent session
-    links, in commits or the pull request description.
-    ([Contributing with AI agents](CONTRIBUTING.md#contributing-with-ai-agents))
-11. **Nothing leaves the user's machine without consent.** Add no new network
+10. **Nothing leaves the user's machine without consent.** Add no new network
     calls; the app must work offline with every prompt declined.
     ([Local-first](CONTRIBUTING.md#quality-gates-your-pr-must-pass))
-12. **Every new feature needs a tested fallback** to the working path, used
+11. **Every new feature needs a tested fallback** to the working path, used
     automatically, with the reason logged.
-13. **Never commit secrets,** tokens, local paths or machine details.
-14. **Resolve the review bots before asking for review.** Read every
+12. **Never commit secrets,** tokens, local paths or machine details.
+13. **Resolve the review bots before asking for review.** Read every
     CodeRabbit and Greptile comment; fix real findings and reply to the rest.
     ([What code review looks like](CONTRIBUTING.md#what-code-review-looks-like))

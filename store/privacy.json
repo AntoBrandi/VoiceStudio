@@ -37,13 +37,6 @@
       ]
     },
     {
-      "destination": "GitHub API",
-      "condition": "public star badge is visible",
-      "purpose": "display the public repository star count",
-      "data": ["ordinary network request metadata"],
-      "excluded": ["credentials", "user content", "project data"]
-    },
-    {
       "destination": "User-selected download providers",
       "condition": "explicit setup, model, gallery, update or media-tool action",
       "purpose": "download the requested runtime, model, gallery asset, update or media tool",

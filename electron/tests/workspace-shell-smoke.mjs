@@ -10,10 +10,6 @@ page.on('console', (message) => {
   if (message.type() === 'error') errors.push(message.text());
 });
 try {
-  // The GitHub star badge fetches a public count; keep the smoke offline and deterministic.
-  await page.route('https://api.github.com/**', (route) =>
-    route.fulfill({ json: { stargazers_count: 1 } }),
-  );
   await page.addInitScript(() => localStorage.setItem('voicestudio.setup.complete.v1', '1'));
   await page.goto(baseUrl + '/#/stories');
   const compactSidebar = page.locator('[data-slot=compact-main-sidebar]');

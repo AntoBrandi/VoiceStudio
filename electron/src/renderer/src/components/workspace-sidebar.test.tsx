@@ -8,7 +8,6 @@ import { WorkspaceHeader } from '@/components/app-shell/workspace-header';
 const platform = vi.hoisted(() => ({ mac: false, fullscreen: false }));
 vi.mock('@/components/bridge', () => ({ isMac: () => platform.mac }));
 vi.mock('@/hooks/use-window-fullscreen', () => ({ useWindowFullscreen: () => platform.fullscreen }));
-vi.mock('@/components/app-shell/support-shortcut', () => ({ SupportShortcut: () => null }));
 vi.mock('@/components/app-shell/sidebar-toggle', () => ({ SidebarToggle: () => null }));
 
 vi.mock('react-i18next', () => ({ useTranslation: () => ({ t: (key: string) => key }) }));

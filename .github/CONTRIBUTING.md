@@ -348,13 +348,13 @@ Commit with a real identity (your GitHub noreply address works). The
 `commit-identity` PR check (`scripts/check_commit_identities.py`) fails when a
 PR commit's author, committer, or `Co-authored-by:`/`Signed-off-by:` email is
 a placeholder (`test@local`, `you@example.com`, `mergetest`, hostname-style
-`*.local`), an AI agent, or on the hashed block list, or when a commit message
-or the PR description credits an AI agent. Fix an identity on the listed
+`*.local`) or on the hashed block list. AI agent co-authors and attribution
+lines are allowed. Fix an identity on the listed
 commits only: `git rebase -i origin/main`, mark each listed commit `edit`, and
 at each stop run `git commit --amend --no-edit --reset-author` and
 `git rebase --continue` (a blanket `--exec` would also take over other
-people's commits); fix agent credit by rewording the commit messages (`git rebase -i`, then
-`reword`) and editing the PR description.
+people's commits); fix a blocked trailer by rewording the commit message
+(`git rebase -i`, then `reword`).
 
 ---
 
@@ -468,13 +468,8 @@ Plenty of contributions here are built with Claude Code, Cursor, and similar
 agents — welcome, with the same quality bar as hand-written PRs (real bug,
 correct fix, regression test; see the quality gates below).
 
-You submit agent-assisted work as your own, under your own git identity. Don't
-credit agents in commits or the PR description: no `Co-authored-by:` trailer
-for an AI agent, no "Generated with …" line, no agent session or share links
-(claude.ai, chatgpt.com) and no `Claude-Session:` trailer. The
-`commit-identity` check fails PRs that carry them. Co-authors who are people
-are welcome, including people with first names that also name an agent, such
-as Claude, Jules, or Devin. Known agent email addresses remain blocked. The
+Crediting the agent is fine: an AI `Co-authored-by:` trailer or a "Generated
+with …" line in a commit or the PR description does not fail any check. The
 identity workflow runs the base branch's policy and publishes `Commit identity
 policy`; changing the checker or workflow in your PR does not bypass it.
 
@@ -748,8 +743,6 @@ test-only PR. Docker Hub overview edits still publish through the small
     still requires diagnostics consent. Withdrawal stops delivery and invalidates queued reports.
     No audio, text, exception messages, logs, user paths, credentials, screenshots
     or crash dumps are uploaded; see `docs/electron-privacy.md`.
-  - The GitHub star count (no credentials or referrer, refreshed every 20
-    minutes while shown).
 
   Adding to this list needs owner approval. Never log or persist secrets or
   absolute home paths.
@@ -776,8 +769,8 @@ your copyright. The agreement lets Yupcha Softwares Private Limited, the
 company that maintains VoiceStudio, ship your work in both the AGPL-3.0 app and
 commercial builds. In return, the company commits that while your contribution
 is in the public VoiceStudio repository, it stays available there under
-AGPL-3.0 or another OSI-approved licence (CLA section 4). AI agents can't be co-authors (see
-[Contributing with AI agents](#contributing-with-ai-agents)); the person
+AGPL-3.0 or another OSI-approved licence (CLA section 4). AI agents don't sign
+(see [Contributing with AI agents](#contributing-with-ai-agents)); the person
 submitting the work signs for it.
 
 For an unsigned pull request, the daily CLA reminder starts a 3-day waiting
