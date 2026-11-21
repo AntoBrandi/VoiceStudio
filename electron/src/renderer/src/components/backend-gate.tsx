@@ -1,4 +1,5 @@
 import { useVisibleInterval } from '@/lib/visible-interval';
+import { RELEASES_URL } from '@shared/app-config';
 import { SetupGate } from './setup-gate';
 import { SetupProgressCard } from './setup-progress-card';
 import { ReportBug } from './report-bug';
@@ -61,7 +62,7 @@ interface BackendGateProps {
   repairDock?: ReactNode;
 }
 
-const RELEASES_URL = 'https://github.com/debpalash/VoiceStudio/releases/latest';
+const LATEST_RELEASE_URL = `${RELEASES_URL}/latest`;
 const RETRYABLE = new Set(['crashed', 'failed', 'port_in_use']);
 
 type SetupPanel = 'options' | 'troubleshoot';
@@ -499,7 +500,7 @@ export function BackendGate({ children, repairDock }: BackendGateProps) {
           {setup || failed || canTroubleshoot ? (
             <div className="flex flex-wrap items-center gap-2">
               {wrongArchitecture ? (
-                <ExternalLink href={RELEASES_URL} variant="secondary">
+                <ExternalLink href={LATEST_RELEASE_URL} variant="secondary">
                   {t('backend.download_apple_silicon')}
                 </ExternalLink>
               ) : null}

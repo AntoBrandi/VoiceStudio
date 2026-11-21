@@ -5,6 +5,7 @@ import { createReadStream, existsSync, readFileSync, statSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { basename, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { RELEASE_NAME, RELEASE_OWNER, RELEASES_URL } from '../../config/app-config.mjs';
 
 const electronRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const require = createRequire(import.meta.url);
@@ -134,7 +135,7 @@ if (platform === 'win32') {
   const updateRelease = channel.startsWith('electron-beta-') ? `v${version}` : 'latest';
   assert.equal(
     updateInfo,
-    `gh-releases-zsync|debpalash|VoiceStudio|${updateRelease}|VoiceStudio-*-linux-x64.AppImage.zsync`,
+    `gh-releases-zsync|${RELEASE_OWNER}|${RELEASE_NAME}|${updateRelease}|VoiceStudio-*-linux-x64.AppImage.zsync`,
     'External AppImage updaters follow the channel their image was built for',
   );
   const control = `${artifactPath}.zsync`;
@@ -142,7 +143,7 @@ if (platform === 'win32') {
   const header = readFileSync(control).subarray(0, 4096).toString('utf8');
   assert(
     header.includes(
-      `URL: https://github.com/debpalash/VoiceStudio/releases/download/v${expectedVersion}/${fileUrl}\n`,
+      `URL: ${RELEASES_URL}/download/v${expectedVersion}/${fileUrl}\n`,
     ),
     'zsync downloads the matching release artifact',
   );

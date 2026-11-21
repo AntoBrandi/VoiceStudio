@@ -1,5 +1,28 @@
 # Releasing VoiceStudio
 
+## Fork releases (AntoBrandi/VoiceStudio)
+
+This fork ships Linux x64 AppImages only, from
+[`.github/workflows/fork-release.yml`](../.github/workflows/fork-release.yml):
+
+- Every push to `main` (except documentation-, test- or phone-only changes)
+  builds the AppImage, runs the packaging contracts and the packaged startup
+  smoke test, and publishes a GitHub release marked `latest` on the fork. A run
+  can also be started by hand (Actions → Fork release → Run workflow).
+- The version is the upstream base `X.Y.Z` from `package.json` plus a fork build
+  number: `X.Y.Z-beta.<1000 + run number>`. It is stamped into `package.json`,
+  `pyproject.toml` and `backend/core/version.py` at build time only; nothing is
+  committed, so upstream merges never conflict with a version bump.
+- Installed copies update in-app: the update feed, the AppImage's embedded
+  update information and the release links all come from `releaseRepository`
+  in [`config/app.json`](../config/app.json). Both the Stable and Beta channel
+  settings follow these releases.
+- The other workflows inherited from upstream (CI, Docker, store and
+  multi-platform releases, schedules) are disabled in the fork's Actions
+  settings, not in the files, so syncing upstream does not conflict.
+
+The rest of this guide describes upstream's release process.
+
 Electron is the only maintained desktop distribution. Tauri ended at v0.5.3;
 its signed updater feeds and installers are immutable compatibility assets.
 

@@ -9,6 +9,7 @@ import { applicationUpdatesUnsupportedReason, CURRENT_DISTRIBUTION } from './dis
 import type { DistributionTarget } from '../../../config/distributions.mjs';
 import { GitHubAssetProvider, releaseAssets, type ReleaseAssets } from './github-asset-provider';
 import { cleanInstalledUpdateDownload } from './updater-cache';
+import { RELEASES_API_URL, RELEASES_URL } from '../../../config/app-config.mjs';
 
 // electron-updater is CommonJS. Electron executes our main bundle as ESM, so
 // named runtime imports fail before the app can create a window.
@@ -20,9 +21,9 @@ const { autoUpdater, CancellationToken } = updaterPackage;
 // `latest/download` never serves a prerelease, so Beta resolves its release
 // through the releases API (see resolveBetaFeed).
 export type UpdateChannel = 'stable' | 'beta';
-const STABLE_FEED = 'https://github.com/debpalash/VoiceStudio/releases/latest/download';
-const RELEASES_API = 'https://api.github.com/repos/debpalash/VoiceStudio/releases?per_page=30';
-const LATEST_RELEASE_API = 'https://api.github.com/repos/debpalash/VoiceStudio/releases/latest';
+const STABLE_FEED = `${RELEASES_URL}/latest/download`;
+const RELEASES_API = `${RELEASES_API_URL}?per_page=30`;
+const LATEST_RELEASE_API = `${RELEASES_API_URL}/latest`;
 const GITHUB_API_HEADERS = {
   Accept: 'application/vnd.github+json',
   'User-Agent': 'VoiceStudio',
@@ -62,7 +63,7 @@ export function feedManifestName(
   return `${feedChannelName(platform, arch, distribution, channel)}${suffix}.yml`;
 }
 
-const RELEASE_DOWNLOAD = 'https://github.com/debpalash/VoiceStudio/releases/download';
+const RELEASE_DOWNLOAD = `${RELEASES_URL}/download`;
 const RELEASE_TAG = /^v(\d+)\.(\d+)\.(\d+)(?:-beta\.(\d+))?$/;
 
 /** Orders `vX.Y.Z-beta.N` below `vX.Y.Z`, as semver does. */
@@ -302,7 +303,7 @@ export async function resolveUpdateFeedUrl(
   });
   const release = matchingReleases[0]?.release;
   if (!release) throw new Error(`No Microsoft Store update feed publishes ${manifest}`);
-  return `https://github.com/debpalash/VoiceStudio/releases/download/${encodeURIComponent(
+  return `${RELEASE_DOWNLOAD}/${encodeURIComponent(
     release.tag_name as string,
   )}`;
 }

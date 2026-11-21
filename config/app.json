@@ -1,6 +1,7 @@
 {
   "productName": "VoiceStudio",
   "appId": "com.voicestudio.desktop",
+  "releaseRepository": "AntoBrandi/VoiceStudio",
   "ports": {
     "backend": 3900,
     "web": 3901,

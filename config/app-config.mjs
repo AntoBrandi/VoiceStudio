@@ -16,6 +16,15 @@ function requiredPort(value, key) {
 
 export const PRODUCT_NAME = requiredString(rawConfig.productName, "productName");
 export const APP_ID = requiredString(rawConfig.appId, "appId");
+// `owner/name` of the GitHub repository whose releases are the update feed,
+// the AppImage's embedded update source and the in-app release links.
+export const RELEASE_REPOSITORY = requiredString(rawConfig.releaseRepository, "releaseRepository");
+if (!/^[A-Za-z0-9-]+\/[A-Za-z0-9._-]+$/.test(RELEASE_REPOSITORY)) {
+  throw new TypeError("config/app.json: releaseRepository must be a GitHub owner/name");
+}
+export const [RELEASE_OWNER, RELEASE_NAME] = RELEASE_REPOSITORY.split("/");
+export const RELEASES_URL = `https://github.com/${RELEASE_REPOSITORY}/releases`;
+export const RELEASES_API_URL = `https://api.github.com/repos/${RELEASE_REPOSITORY}/releases`;
 export const DEFAULT_BACKEND_PORT = requiredPort(rawConfig.ports?.backend, "backend");
 export const DEFAULT_WEB_PORT = requiredPort(rawConfig.ports?.web, "web");
 export const DEFAULT_ELECTRON_DEV_PORT = requiredPort(rawConfig.ports?.electronDev, "electronDev");
